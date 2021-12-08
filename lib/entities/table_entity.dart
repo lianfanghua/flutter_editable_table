@@ -104,4 +104,16 @@ class TableEntity {
       rows: rows.map((e) => e.copy()).toList(),
     );
   }
+
+  void updateAutoIncreaseColumn() {
+    if (rows.isNotEmpty) {
+      for (var i = 0; i < rows.length; ++i) {
+        rows[i].cells?.forEach((cell) {
+          if (cell.columnInfo.autoIncrease) {
+            cell.value = cell.columnInfo.format?.replaceAll(defaultFormatValueSlot, (i + 1).toString());
+          }
+        });
+      }
+    }
+  }
 }

@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.4,
-        "input_decoration": {"min_lines": 3, "max_lines": null, "max_length": 128, "hint_text": "Please input the name"},
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input the name"},
         "constrains": {"minimum": 0, "maximum": 99999999, "pattern": "\\w{128}"},
         "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
@@ -131,13 +131,6 @@ class _MyHomePageState extends State<MyHomePage> {
       {"id": 7, "name": "Olivia", "age": 25},
       {"id": 8, "name": "Liam", "age": 23},
       {"id": 9, "name": "David", "age": 26},
-      {"id": 10, "name": "Charlotte", "age": 20},
-      {"id": 11, "name": "Maeve", "age": 27},
-      {"id": 12, "name": "Alice", "age": 25},
-      {"id": 13, "name": "Lydia", "age": 22},
-      {"id": 14, "name": "Julia", "age": 28},
-      {"id": 15, "name": "Josephine", "age": 19},
-      {"id": 16, "name": "Zoe", "age": 23},
     ]
   };
 
@@ -165,6 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           headerBorder: Border.all(color: Color(0xFF999999)),
           rowBorder: Border.all(color: Color(0xFF999999)),
+          onRowRemoved: (row) {
+            print('row removed: ${row.toString()}');
+          },
         ),
       ),
     );

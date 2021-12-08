@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_editable_table/constants.dart';
 
+import '../constants.dart';
 import 'utils/utils.dart';
 
 class StyleEntity {

@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'entities/row_entity.dart';
 import 'entities/table_entity.dart';
 import 'widget/body.dart';
 import 'widget/caption.dart';
@@ -30,6 +31,7 @@ class EditableTable extends StatefulWidget {
     this.cellTextFieldContentPadding,
     this.cellTextFieldBorder,
     this.cellTextFieldFocusBorder,
+    this.onRowRemoved,
   }) : super(key: key);
 
   final Map<String, dynamic> data;
@@ -57,22 +59,25 @@ class EditableTable extends StatefulWidget {
   final InputBorder? cellTextFieldBorder;
   final InputBorder? cellTextFieldFocusBorder;
 
+  /// Method
+  final ValueChanged<RowEntity>? onRowRemoved;
+
   @override
   EditableTableState createState() => EditableTableState();
 }
 
 class EditableTableState extends State<EditableTable> {
-  late final TableEntity _originalTaleEntity;
+  late final TableEntity _tableEntity;
   late final double _tableWidth;
 
-  TableEntity get currentData => _originalTaleEntity;
+  TableEntity get currentData => _tableEntity;
 
   @override
   void initState() {
-    _originalTaleEntity = TableEntity.fromJson(widget.data);
+    _tableEntity = TableEntity.fromJson(widget.data);
     final screenWidth = window.physicalSize.width / window.devicePixelRatio;
     final tablePadding = widget.tablePadding != null && widget.tablePadding is EdgeInsets ? ((widget.tablePadding as EdgeInsets).left + (widget.tablePadding as EdgeInsets).right) : 0.0;
-    _tableWidth = _originalTaleEntity.columns.where((column) => column.display).map((column) => column.widthFactor * screenWidth).reduce((value, element) => value + element) - tablePadding;
+    _tableWidth = _tableEntity.columns.where((column) => column.display).map((column) => column.widthFactor * screenWidth).reduce((value, element) => value + element) - tablePadding + (_tableEntity.removable ? 32.0 : 0.0);
     super.initState();
   }
 
@@ -87,11 +92,12 @@ class EditableTableState extends State<EditableTable> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (_originalTaleEntity.captionLayout != null)
+            if (_tableEntity.captionLayout != null)
               EditableTableCaption(
-                captionLayoutEntity: _originalTaleEntity.captionLayout!,
-                captionWidth: _tableWidth,
+                captionLayoutEntity: _tableEntity.captionLayout!,
+                captionWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 captionPadding: widget.captionPadding,
                 captionBorder: widget.captionBorder,
                 captionTextStyle: widget.captionTextStyle,
@@ -100,24 +106,32 @@ class EditableTableState extends State<EditableTable> {
                 captionInputDecorationBorder: widget.captionTextFieldBorder,
                 captionInputDecorationFocusBorder: widget.captionTextFieldFocusBorder,
               ),
-            if (_originalTaleEntity.columns.isNotEmpty)
+            if (_tableEntity.columns.isNotEmpty)
               EditableTableHeader(
-                columnsEntity: _originalTaleEntity.columns,
-                headerWidth: _tableWidth,
+                columnsEntity: _tableEntity.columns,
+                headerWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 headerBorder: widget.headerBorder,
                 headerTextStyle: widget.headerTextStyle,
               ),
-            if (_originalTaleEntity.rows.isNotEmpty)
+            if (_tableEntity.rows.isNotEmpty)
               EditableTableBody(
-                rowsEntity: _originalTaleEntity.rows,
+                bodyEntity: _tableEntity.rows,
+                removable: _tableEntity.removable,
                 rowWidth: _tableWidth,
                 rowBorder: widget.rowBorder,
                 cellTextStyle: widget.cellTextStyle,
-                cellTextPadding: widget.cellTextPadding,
+                cellContentPadding: widget.cellTextPadding,
                 cellHintTextStyle: widget.cellHintTextStyle,
                 cellInputDecorationContentPadding: widget.cellTextFieldContentPadding,
                 cellInputDecorationBorder: widget.cellTextFieldBorder,
                 cellInputDecorationFocusBorder: widget.cellTextFieldFocusBorder,
+                onRowRemoved: (RowEntity row) {
+                  setState(() {
+                    _tableEntity.rows.remove(row);
+                    _tableEntity.updateAutoIncreaseColumn();
+                  });
+                  if (widget.onRowRemoved != null) widget.onRowRemoved!(row);
+                },
               ),
           ],
         ),
