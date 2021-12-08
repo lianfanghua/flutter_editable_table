@@ -112,7 +112,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
               )
             : Container(
                 color: captionEntity.style?.backgroundColor,
-                width: widget.captionWidth,
+                width: widget.captionLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.captionWidth : null,
                 alignment: captionEntity.style?.horizontalAlignment,
                 child: Text(
                   captionEntity.title ?? '',
