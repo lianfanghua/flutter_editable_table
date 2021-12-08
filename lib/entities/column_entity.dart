@@ -11,7 +11,7 @@ class ColumnEntity {
     this.autoIncrease = false,
     this.name,
     this.title = '',
-    this.type,
+    this.type = 'string',
     this.format,
     this.description = '',
     this.display = true,
@@ -27,7 +27,7 @@ class ColumnEntity {
         autoIncrease: asT<bool?>(jsonRes['auto_increase']) ?? false,
         name: asT<String?>(jsonRes['name']),
         title: asT<String?>(jsonRes['title']) ?? '',
-        type: asT<String?>(jsonRes['type']),
+        type: asT<String?>(jsonRes['type']) ?? 'string',
         format: asT<String?>(jsonRes['format']),
         description: asT<String?>(jsonRes['description']) ?? '',
         display: asT<bool?>(jsonRes['display']) ?? true,
@@ -42,7 +42,7 @@ class ColumnEntity {
   final bool autoIncrease;
   final String? name;
   final String title;
-  final String? type;
+  final String type;
   final String? format;
   final String description;
   final bool display;

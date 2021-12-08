@@ -1,13 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-enum ValueType {
-  bool,
-  integer,
-  float,
-  date,
-  string,
-}
-
 const Map<String, FontWeight> editableCellFontWeight = {
   'light': FontWeight.w300,
   'normal': FontWeight.normal,
