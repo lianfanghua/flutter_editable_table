@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_editable_table/entities/utils/utils.dart';
-
 import 'cell_entity.dart';
 import 'column_entity.dart';
+import 'utils/utils.dart';
 
 class RowEntity {
   RowEntity({
@@ -16,6 +15,7 @@ class RowEntity {
     } else {
       this.cells = columns.map((e) => CellEntity(value: null, columnInfo: e)).toList(growable: false);
     }
+    this._columns = columns;
   }
 
   factory RowEntity.fromJson(Map<String, dynamic> jsonRes, List<ColumnEntity> columns) {
@@ -48,8 +48,8 @@ class RowEntity {
 
   RowEntity copy() {
     return RowEntity(
-      cells: cells?.map((CellEntity e) => e.copy()).toList(),
-      columns: _columns,
+      cells: cells?.map((e) => e.copy()).toList(),
+      columns: _columns.map((e) => e.copy()).toList(),
     );
   }
 }
