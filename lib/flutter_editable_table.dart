@@ -3,6 +3,7 @@ library flutter_editable_table;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_editable_table/widget/operation_row.dart';
 
 import 'entities/row_entity.dart';
 import 'entities/table_entity.dart';
@@ -32,6 +33,7 @@ class EditableTable extends StatefulWidget {
     this.cellTextFieldBorder,
     this.cellTextFieldFocusBorder,
     this.onRowRemoved,
+    this.onRowAdded,
   }) : super(key: key);
 
   final Map<String, dynamic> data;
@@ -61,6 +63,7 @@ class EditableTable extends StatefulWidget {
 
   /// Method
   final ValueChanged<RowEntity>? onRowRemoved;
+  final VoidCallback? onRowAdded;
 
   @override
   EditableTableState createState() => EditableTableState();
@@ -131,6 +134,18 @@ class EditableTableState extends State<EditableTable> {
                     _tableEntity.updateAutoIncreaseColumn();
                   });
                   if (widget.onRowRemoved != null) widget.onRowRemoved!(row);
+                },
+              ),
+            if (_tableEntity.addable)
+              EditableTableOperationRow(
+                rowWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                rowBorder: widget.rowBorder,
+                onRowAdded: () {
+                  setState(() {
+                    _tableEntity.rows.add(RowEntity(columns: _tableEntity.columns));
+                    _tableEntity.updateAutoIncreaseColumn();
+                  });
+                  if (widget.onRowAdded != null) widget.onRowAdded!;
                 },
               ),
           ],

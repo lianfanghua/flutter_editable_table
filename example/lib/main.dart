@@ -236,6 +236,9 @@ class _MyHomePageState extends State<MyHomePage> {
           onRowRemoved: (row) {
             print('row removed: ${row.toString()}');
           },
+          onRowAdded: () {
+            print('row added');
+          },
         ),
       ),
     );

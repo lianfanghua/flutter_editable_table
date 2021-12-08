@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../entities/row_entity.dart';
-import 'row.dart';
+import 'data_row.dart';
 
 class EditableTableBody extends StatefulWidget {
   const EditableTableBody({

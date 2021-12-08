@@ -41,9 +41,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.cellEntity.value != null) {
-      _textEditingController.text = widget.cellEntity.value.toString();
-    }
+    _textEditingController.text = widget.cellEntity.value != null ? widget.cellEntity.value.toString() : '';
     return Container(
       width: widget.cellWidth,
       padding: widget.cellContentPadding ?? EdgeInsets.all(4.0),

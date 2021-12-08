@@ -84,9 +84,9 @@ class _EditableTableRowState extends State<EditableTableRow> {
         children: widget.rowEntity.cells!
             .where((cell) => cell.columnInfo.display)
             .map(
-              (e) => EditableTableDataCell(
-                cellEntity: e,
-                cellWidth: e.columnInfo.widthFactor * _actualWidth,
+              (cell) => EditableTableDataCell(
+                cellEntity: cell,
+                cellWidth: cell.columnInfo.widthFactor * _actualWidth,
               ),
             )
             .toList(),
