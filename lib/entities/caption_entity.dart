@@ -32,7 +32,13 @@ class CaptionEntity {
     return jsonEncode(this);
   }
 
-  Map<String, dynamic> toJson() => <String, dynamic>{'title': title};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'title': title,
+        'display': display,
+        'editable': editable,
+        'input_decoration': inputDecoration?.toJson(),
+        'style': style?.toJson(),
+      };
 
   CaptionEntity copy() {
     return CaptionEntity(

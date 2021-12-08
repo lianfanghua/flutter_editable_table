@@ -26,8 +26,9 @@ class CaptionLayoutEntity {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'main_caption': mainCaption,
-        'sub_caption': subCaption,
+        'layout_direction': layoutDirection,
+        'main_caption': mainCaption?.toJson(),
+        'sub_caption': subCaption?.toJson(),
       };
 
   CaptionLayoutEntity copy() {

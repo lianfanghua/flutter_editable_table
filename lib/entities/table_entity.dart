@@ -84,8 +84,13 @@ class TableEntity {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'caption': captionLayout,
-        'rows': rows,
+        'column_count': columnCount,
+        'row_count': rowCount,
+        'addable': addable,
+        'removable': removable,
+        'caption': captionLayout?.toJson(),
+        'columns': columns.map((e) => e.toJson()).toList(),
+        'rows': rows.map((e) => e.toJson()).toList(),
       };
 
   TableEntity copy() {
@@ -95,8 +100,8 @@ class TableEntity {
       addable: addable,
       removable: removable,
       captionLayout: captionLayout?.copy(),
-      columns: columns.map((ColumnEntity e) => e.copy()).toList(),
-      rows: rows.map((RowEntity e) => e.copy()).toList(),
+      columns: columns.map((e) => e.copy()).toList(),
+      rows: rows.map((e) => e.copy()).toList(),
     );
   }
 }

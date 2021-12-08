@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     "addable": true,
     "removable": true,
     "caption": {
-      "layout_direction": "column",
+      "layout_direction": "row",
       "main_caption": {
         "title": "Caption",
         "display": true,
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           icon: Icon(Icons.print),
           onPressed: () {
-            print(_editableTableKey.currentState?.currentData.toString());
+            print(_editableTableKey.currentState?.currentData.toJson());
           },
         ),
         title: Text(widget.title),

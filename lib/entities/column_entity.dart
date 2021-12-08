@@ -68,9 +68,9 @@ class ColumnEntity {
         'display': display,
         'editable': editable,
         'width_factor': widthFactor,
-        'input_decoration': inputDecoration,
-        'constrains': constrains,
-        'style': style,
+        'input_decoration': inputDecoration?.toJson(),
+        'constrains': constrains?.toJson(),
+        'style': style?.toJson(),
       };
 
   ColumnEntity copy() {

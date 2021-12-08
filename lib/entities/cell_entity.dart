@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_editable_table/entities/column_entity.dart';
+import 'column_entity.dart';
 
 class CellEntity {
   CellEntity({
