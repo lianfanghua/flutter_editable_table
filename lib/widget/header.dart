@@ -37,25 +37,28 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.headerWidth,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: _displayColumns
-            .asMap()
-            .entries
-            .map(
-              (e) => e.value.description.isNotEmpty
-                  ? Tooltip(
-                      message: e.value.description,
-                      textStyle: widget.headerTextStyle ??
-                          Theme.of(context).tooltipTheme.textStyle?.copyWith(
-                                fontSize: e.value.style?.fontSize,
-                                fontWeight: e.value.style?.fontWeight,
-                              ),
-                      child: _buildColumn(context, e.value, e.key),
-                    )
-                  : _buildColumn(context, e.value, e.key),
-            )
-            .toList(growable: false),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: _displayColumns
+              .asMap()
+              .entries
+              .map(
+                (e) => e.value.description.isNotEmpty
+                    ? Tooltip(
+                        message: e.value.description,
+                        textStyle: widget.headerTextStyle ??
+                            Theme.of(context).tooltipTheme.textStyle?.copyWith(
+                                  fontSize: e.value.style?.fontSize,
+                                  fontWeight: e.value.style?.fontWeight,
+                                ),
+                        child: _buildColumn(context, e.value, e.key),
+                      )
+                    : _buildColumn(context, e.value, e.key),
+              )
+              .toList(growable: false),
+        ),
       ),
     );
   }
@@ -64,6 +67,7 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
     return Container(
       width: column.widthFactor * _actualWidth,
       padding: widget.headerTextPadding ?? EdgeInsets.symmetric(vertical: 4.0),
+      alignment: column.style?.horizontalAlignment,
       decoration: BoxDecoration(
         border: index == 0
             ? widget.headerBorder
