@@ -119,20 +119,22 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                   ),
                 ),
               )
-            : Container(
-                color: footerEntity.style?.backgroundColor,
-                width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
-                padding: index != _displayFooters.length - 1 ? EdgeInsets.only(bottom: 8.0) : null,
-                alignment: footerEntity.style?.horizontalAlignment,
-                child: Text(
-                  footerEntity.title ?? '',
-                  style: widget.footerTextStyle ??
-                      Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: footerEntity.style?.fontSize,
-                            fontWeight: footerEntity.style?.fontWeight,
-                            color: footerEntity.style?.fontColor,
-                          ),
-                  textAlign: footerEntity.style?.textAlign,
+            : Flexible(
+                child: Container(
+                  color: footerEntity.style?.backgroundColor,
+                  width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
+                  padding: index != _displayFooters.length - 1 ? EdgeInsets.only(bottom: 8.0) : null,
+                  alignment: footerEntity.style?.horizontalAlignment,
+                  child: Text(
+                    footerEntity.title ?? '',
+                    style: widget.footerTextStyle ??
+                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                              fontSize: footerEntity.style?.fontSize,
+                              fontWeight: footerEntity.style?.fontWeight,
+                              color: footerEntity.style?.fontColor,
+                            ),
+                    textAlign: footerEntity.style?.textAlign,
+                  ),
                 ),
               ))
         : SizedBox();
@@ -144,11 +146,7 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
         ? (footerEntity.editable
             ? Flexible(
                 child: Container(
-                  padding: widget.footerPadding ??
-                      EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 4.0,
-                      ),
+                  padding: widget.footerPadding ?? EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     border: index == 0
                         ? (widget.footerBorder != null
@@ -210,40 +208,38 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                   ),
                 ),
               )
-            : Container(
-                width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
-                padding: widget.footerPadding ??
-                    EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                alignment: footerEntity.style?.horizontalAlignment,
-                decoration: BoxDecoration(
-                  border: index == 0
-                      ? (widget.footerBorder != null
-                          ? Border(
-                              left: widget.footerBorder!.left,
-                              right: widget.footerBorder!.right,
-                              bottom: widget.footerBorder!.bottom,
-                            )
-                          : null)
-                      : (widget.footerBorder != null
-                          ? Border(
-                              right: widget.footerBorder!.right,
-                              bottom: widget.footerBorder!.bottom,
-                            )
-                          : null),
-                  color: footerEntity.style?.backgroundColor,
-                ),
-                child: Text(
-                  footerEntity.title ?? '',
-                  style: widget.footerTextStyle ??
-                      Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: footerEntity.style?.fontSize,
-                            fontWeight: footerEntity.style?.fontWeight,
-                            color: footerEntity.style?.fontColor,
-                          ),
-                  textAlign: footerEntity.style?.textAlign,
+            : Flexible(
+                child: Container(
+                  width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
+                  padding: widget.footerPadding ?? EdgeInsets.all(8.0),
+                  alignment: footerEntity.style?.horizontalAlignment,
+                  decoration: BoxDecoration(
+                    border: index == 0
+                        ? (widget.footerBorder != null
+                            ? Border(
+                                left: widget.footerBorder!.left,
+                                right: widget.footerBorder!.right,
+                                bottom: widget.footerBorder!.bottom,
+                              )
+                            : null)
+                        : (widget.footerBorder != null
+                            ? Border(
+                                right: widget.footerBorder!.right,
+                                bottom: widget.footerBorder!.bottom,
+                              )
+                            : null),
+                    color: footerEntity.style?.backgroundColor,
+                  ),
+                  child: Text(
+                    footerEntity.title ?? '',
+                    style: widget.footerTextStyle ??
+                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                              fontSize: footerEntity.style?.fontSize,
+                              fontWeight: footerEntity.style?.fontWeight,
+                              color: footerEntity.style?.fontColor,
+                            ),
+                    textAlign: footerEntity.style?.textAlign,
+                  ),
                 ),
               ))
         : SizedBox();

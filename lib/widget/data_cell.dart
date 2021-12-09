@@ -127,7 +127,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             _textEditingController.text = dateString;
           },
           currentTime: widget.cellEntity.value != null ? (DateTime.tryParse(widget.cellEntity.value.toString()) ?? DateTime.now()) : DateTime.now(),
-          locale: Intl.getCurrentLocale() == 'zh' ? LocaleType.zh : LocaleType.en,
+          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' && WidgetsBinding.instance?.window.locale.languageCode == 'zh' ? LocaleType.zh : LocaleType.en,
         );
       },
     );
@@ -182,7 +182,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             _textEditingController.text = dateString;
           },
           currentTime: widget.cellEntity.value != null ? (DateTime.tryParse(widget.cellEntity.value.toString()) ?? DateTime.now()) : DateTime.now(),
-          locale: Intl.getCurrentLocale() == 'zh' ? LocaleType.zh : LocaleType.en,
+          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' && WidgetsBinding.instance?.window.locale.languageCode == 'zh' ? LocaleType.zh : LocaleType.en,
         );
       },
     );

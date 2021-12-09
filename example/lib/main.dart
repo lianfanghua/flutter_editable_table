@@ -198,20 +198,15 @@ class _MyHomePageState extends State<MyHomePage> {
     "rows": [
       {"id": 0, "name": "Tom", "age": 18, "desc": "I'm Tom, Tom, Tom", "salary": 1000.5, "married": false, "d_o_m": null, "l_s_t": "2021-10-02 14:30:50"},
       {"id": 1, "name": "Sam", "age": 20, "desc": null, "salary": 1234.5, "married": false, "d_o_m": null, "l_s_t": "2021-06-23 11:28:00"},
-      {"id": 2, "name": "Jan", "age": 21, "desc": null, "salary": 1800.0, "married": false, "d_o_m": null, "l_s_t": "2021-02-16 10:30:00"},
-      {"id": 3, "name": "Ava", "age": 25, "desc": null, "salary": 2500.0, "married": false, "d_o_m": null, "l_s_t": "2020-12-25 13:00:00"},
-      {"id": 4, "name": "Emma", "age": 22, "desc": null, "salary": 1700.0, "married": false, "d_o_m": null, "l_s_t": "2021-07-02 09:30:00"},
-      {"id": 5, "name": "Mia", "age": 21, "desc": null, "salary": 2000.0, "married": false, "d_o_m": null, "l_s_t": "2021-05-01 10:20:43"},
-      {"id": 6, "name": "Charlotte", "age": 19, "desc": null, "salary": 1500.0, "married": false, "d_o_m": null, "l_s_t": "2021-08-18 13:40:10"},
-      {"id": 7, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20:00"},
-      {"id": 8, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10:20"},
-      {"id": 9, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30:50"},
+      {"id": 2, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20:00"},
+      {"id": 3, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10:20"},
+      {"id": 4, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30:50"},
     ],
     "footer": {
-      "layout_direction": "column",
+      "layout_direction": "row",
       "content": [
         {
-          "title": "Average Age: 22",
+          "title": "Average Age: 22.4",
           "display": true,
           "editable": false,
           "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
@@ -242,10 +237,20 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           icon: Icon(Icons.print),
           onPressed: () {
-            print(_editableTableKey.currentState?.currentData.rows);
+            print(_editableTableKey.currentState?.currentData);
           },
         ),
         title: Text(widget.title),
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+              _editableTableKey.currentState?.addRow();
+            },
+            child: Icon(Icons.add),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: EditableTable(

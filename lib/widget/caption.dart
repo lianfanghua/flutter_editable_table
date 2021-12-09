@@ -40,9 +40,10 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
       decoration: BoxDecoration(border: widget.captionBorder),
       child: widget.captionLayoutEntity.layoutDirection.toLowerCase() == 'row'
           ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildCaption(widget.captionLayoutEntity.mainCaption),
-                if (widget.captionLayoutEntity.mainCaption != null) SizedBox(width: 8.0),
+                if (widget.captionLayoutEntity.mainCaption != null && widget.captionLayoutEntity.subCaption != null) SizedBox(width: 8.0),
                 _buildCaption(widget.captionLayoutEntity.subCaption),
               ],
             )
@@ -50,7 +51,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildCaption(widget.captionLayoutEntity.mainCaption),
-                if (widget.captionLayoutEntity.mainCaption != null) SizedBox(height: 8.0),
+                if (widget.captionLayoutEntity.mainCaption != null && widget.captionLayoutEntity.subCaption != null) SizedBox(height: 8.0),
                 _buildCaption(widget.captionLayoutEntity.subCaption),
               ],
             ),
