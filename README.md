@@ -21,7 +21,7 @@ import 'package:flutter_editable_table/flutter_editable_table.dart';
 
 ## API
 
-### 创建表格
+### Create Editable Table
 
 To create a new editable table, use the `EditableTable()` widget and provide the json data as follows.
 
