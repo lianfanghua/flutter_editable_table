@@ -5,11 +5,19 @@ class EditableTableOperationRow extends StatelessWidget {
     Key? key,
     required this.rowWidth,
     this.rowBorder,
+    this.addRowIcon,
+    this.addRowIconPadding,
+    this.addRowIconAlignment,
+    this.addRowIconContainerBackgroundColor,
     this.onRowAdded,
   }) : super(key: key);
 
   final double rowWidth;
   final Border? rowBorder;
+  final Widget? addRowIcon;
+  final EdgeInsetsGeometry? addRowIconPadding;
+  final Alignment? addRowIconAlignment;
+  final Color? addRowIconContainerBackgroundColor;
 
   final VoidCallback? onRowAdded;
 
@@ -20,9 +28,10 @@ class EditableTableOperationRow extends StatelessWidget {
       onTap: onRowAdded,
       child: Container(
         width: rowWidth,
-        padding: EdgeInsets.symmetric(vertical: 4.0),
-        alignment: Alignment.center,
+        padding: addRowIconPadding ?? EdgeInsets.symmetric(vertical: 4.0),
+        alignment: addRowIconAlignment ?? Alignment.center,
         decoration: BoxDecoration(
+          color: addRowIconContainerBackgroundColor,
           border: rowBorder != null
               ? Border(
                   left: rowBorder!.left,
@@ -31,10 +40,11 @@ class EditableTableOperationRow extends StatelessWidget {
                 )
               : null,
         ),
-        child: Icon(
-          Icons.add,
-          size: 24.0,
-        ),
+        child: addRowIcon ??
+            Icon(
+              Icons.add,
+              size: 24.0,
+            ),
       ),
     );
   }

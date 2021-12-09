@@ -34,6 +34,14 @@ class EditableTable extends StatefulWidget {
     this.cellInputDecorationContentPadding,
     this.cellInputDecorationBorder,
     this.cellInputDecorationFocusBorder,
+    this.removeRowIcon,
+    this.removeRowIconPadding,
+    this.removeRowIconAlignment,
+    this.removeRowIconContainerBackgroundColor,
+    this.addRowIcon,
+    this.addRowIconPadding,
+    this.addRowIconAlignment,
+    this.addRowIconContainerBackgroundColor,
     this.footerBorder,
     this.footerPadding,
     this.footerTextStyle,
@@ -70,6 +78,16 @@ class EditableTable extends StatefulWidget {
   final EdgeInsetsGeometry? cellInputDecorationContentPadding;
   final InputBorder? cellInputDecorationBorder;
   final InputBorder? cellInputDecorationFocusBorder;
+  final Widget? removeRowIcon;
+  final EdgeInsetsGeometry? removeRowIconPadding;
+  final Alignment? removeRowIconAlignment;
+  final Color? removeRowIconContainerBackgroundColor;
+
+  /// Operation Row Config
+  final Widget? addRowIcon;
+  final EdgeInsetsGeometry? addRowIconPadding;
+  final Alignment? addRowIconAlignment;
+  final Color? addRowIconContainerBackgroundColor;
 
   /// Footer Config
   final Border? footerBorder;
@@ -80,7 +98,7 @@ class EditableTable extends StatefulWidget {
   final InputBorder? footerInputDecorationBorder;
   final InputBorder? footerInputDecorationFocusBorder;
 
-  /// Method
+  /// Callback
   final ValueChanged<RowEntity>? onRowRemoved;
   final VoidCallback? onRowAdded;
 
@@ -148,6 +166,10 @@ class EditableTableState extends State<EditableTable> {
                 cellInputDecorationContentPadding: widget.cellInputDecorationContentPadding,
                 cellInputDecorationBorder: widget.cellInputDecorationBorder,
                 cellInputDecorationFocusBorder: widget.cellInputDecorationFocusBorder,
+                removeRowIcon: widget.removeRowIcon,
+                removeRowIconPadding: widget.removeRowIconPadding,
+                removeRowIconAlignment: widget.removeRowIconAlignment,
+                removeRowIconContainerBackgroundColor: widget.removeRowIconContainerBackgroundColor,
                 onRowRemoved: (RowEntity row) {
                   setState(() {
                     _tableEntity.rows.remove(row);
@@ -160,6 +182,10 @@ class EditableTableState extends State<EditableTable> {
               EditableTableOperationRow(
                 rowWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 rowBorder: widget.rowBorder,
+                addRowIcon: widget.addRowIcon,
+                addRowIconPadding: widget.addRowIconPadding,
+                addRowIconAlignment: widget.addRowIconAlignment,
+                addRowIconContainerBackgroundColor: widget.addRowIconContainerBackgroundColor,
                 onRowAdded: () {
                   addRow();
                 },

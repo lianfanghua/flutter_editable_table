@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Example'),
+      home: MyHomePage(title: 'Editable Table'),
     );
   }
 }
@@ -196,11 +196,11 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     ],
     "rows": [
-      {"id": 0, "name": "Tom", "age": 18, "desc": "I'm Tom, Tom, Tom", "salary": 1000.5, "married": false, "d_o_m": null, "l_s_t": "2021-10-02 14:30:50"},
-      {"id": 1, "name": "Sam", "age": 20, "desc": null, "salary": 1234.5, "married": false, "d_o_m": null, "l_s_t": "2021-06-23 11:28:00"},
-      {"id": 2, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20:00"},
-      {"id": 3, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10:20"},
-      {"id": 4, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30:50"},
+      {"id": 0, "name": "Tom", "age": 18, "desc": "I'm Tom, Tom, Tom", "salary": 1000.5, "married": false, "d_o_m": null, "l_s_t": "2021-10-02 14:30"},
+      {"id": 1, "name": "Sam", "age": 20, "desc": null, "salary": 1234.5, "married": false, "d_o_m": null, "l_s_t": "2021-06-23 11:28"},
+      {"id": 2, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20"},
+      {"id": 3, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10"},
+      {"id": 4, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30"},
     ],
     "footer": {
       "layout_direction": "row",
@@ -241,6 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         title: Text(widget.title),
+        centerTitle: true,
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
@@ -249,7 +250,8 @@ class _MyHomePageState extends State<MyHomePage> {
               _editableTableKey.currentState?.addRow();
             },
             child: Icon(Icons.add),
-          )
+          ),
+          SizedBox(width: 14.0),
         ],
       ),
       body: SingleChildScrollView(
@@ -265,6 +267,17 @@ class _MyHomePageState extends State<MyHomePage> {
           headerBorder: Border.all(color: Color(0xFF999999)),
           rowBorder: Border.all(color: Color(0xFF999999)),
           footerBorder: Border.all(color: Color(0xFF999999)),
+          removeRowIcon: Icon(
+            Icons.remove_circle_outline,
+            size: 24.0,
+            color: Colors.redAccent,
+          ),
+          addRowIcon: Icon(
+            Icons.add_circle_outline,
+            size: 24.0,
+            color: Colors.white,
+          ),
+          addRowIconContainerBackgroundColor: Colors.blueAccent,
           onRowRemoved: (row) {
             print('row removed: ${row.toString()}');
           },

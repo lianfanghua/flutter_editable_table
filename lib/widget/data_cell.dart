@@ -177,7 +177,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
           context,
           showTitleActions: true,
           onConfirm: (date) {
-            final dateString = DateFormat('yyyy-MM-dd HH:mm:ss').format(date);
+            final dateString = DateFormat('yyyy-MM-dd HH:mm').format(date);
             widget.cellEntity.value = dateString;
             _textEditingController.text = dateString;
           },

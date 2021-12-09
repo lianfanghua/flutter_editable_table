@@ -17,6 +17,10 @@ class EditableTableRow extends StatefulWidget {
     this.cellInputDecorationBorder,
     this.cellInputDecorationFocusBorder,
     this.cellTextStyle,
+    this.removeRowIcon,
+    this.removeRowIconPadding,
+    this.removeRowIconAlignment,
+    this.removeRowIconContainerBackgroundColor,
     this.onRowRemoved,
   }) : super(key: key);
 
@@ -30,6 +34,10 @@ class EditableTableRow extends StatefulWidget {
   final InputBorder? cellInputDecorationBorder;
   final InputBorder? cellInputDecorationFocusBorder;
   final TextStyle? cellTextStyle;
+  final Widget? removeRowIcon;
+  final EdgeInsetsGeometry? removeRowIconPadding;
+  final Alignment? removeRowIconAlignment;
+  final Color? removeRowIconContainerBackgroundColor;
 
   final ValueChanged<RowEntity>? onRowRemoved;
 
@@ -56,10 +64,13 @@ class _EditableTableRowState extends State<EditableTableRow> {
               children: [
                 _buildRow(),
                 EditableTableOperationCell(
+                  removeRowIcon: widget.removeRowIcon,
+                  removeRowIconPadding: widget.removeRowIconPadding,
+                  removeRowIconAlignment: widget.removeRowIconAlignment,
+                  removeRowIconContainerBackgroundColor: widget.removeRowIconContainerBackgroundColor,
                   onRowRemoved: () {
                     if (widget.onRowRemoved != null) widget.onRowRemoved!(widget.rowEntity);
                   },
-                  cellContentPadding: widget.cellContentPadding,
                 ),
               ],
             ),
