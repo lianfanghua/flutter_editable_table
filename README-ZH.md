@@ -29,6 +29,7 @@ import 'package:flutter_editable_table/flutter_editable_table.dart';
 EditableTable(
   key: _editableTableKey,
   data: data,
+  // entity: TableEntity.fromJson(data),
   tablePadding: EdgeInsets.all(8.0),
   captionBorder: Border(
     top: BorderSide(color: Color(0xFF999999)),
@@ -55,6 +56,19 @@ EditableTable(
   onRowAdded: () {
     print('row added');
   },
+)
+```
+
+### 数据源
+
+```dart
+// 如果同时提供`data`和`entity`，将优先使用`entity`
+EditableTable(
+  // 使用`Map<String, dynamic>`作为数据源
+  data: data,
+  // 使用`Use TableEntity`作为数据源
+  entity: TableEntity.fromJson(data),
+  ...
 )
 ```
 
@@ -349,6 +363,24 @@ EditableTable(key: _editableTableKey)
 _editableTableKey.currentState?.addRow();
 ```
 
+## 只读模式
+
+```dart
+EditableTable(
+  readOnly: true
+)
+```
+
+动态改变只读模式
+
+```dart
+final _editableTableKey = GlobalKey<EditableTableState>();
+...
+EditableTable(key: _editableTableKey)
+...
+_editableTableKey.currentState?.readOnly = true;
+```
+
 ## 例子
 
-更多信息请见：[例子](example/lib/main.dart)
+[完整例子](example/lib/main.dart)

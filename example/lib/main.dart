@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_editable_table/entities/table_entity.dart';
 import 'package:flutter_editable_table/flutter_editable_table.dart';
 
 void main() {
@@ -48,43 +49,15 @@ class _MyHomePageState extends State<MyHomePage> {
         "title": "Caption",
         "display": true,
         "editable": false,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 64,
-          "hint_text": "Please input the caption",
-          "fill_color": null
-        },
-        "style": {
-          "font_weight": "bold",
-          "font_size": 18.0,
-          "font_color": "#333333",
-          "background_color": null,
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the caption", "fill_color": null},
+        "style": {"font_weight": "bold", "font_size": 18.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       "sub_caption": {
         "title": null,
         "display": true,
         "editable": true,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 64,
-          "hint_text": "Please input the sub-caption",
-          "fill_color": null
-        },
-        "style": {
-          "font_weight": "normal",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": null,
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+        "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       }
     },
     "columns": [
@@ -98,22 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "description": null,
         "display": false,
         "editable": false,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 64,
-          "hint_text": "Please input"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
         "constrains": {"minimum": 0, "maximum": 99999999},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -126,22 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": false,
         "width_factor": 0.2,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 64,
-          "hint_text": "Please input"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
         "constrains": {"minimum": 0, "maximum": 99999999},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -154,22 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.4,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please input the name"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input the name"},
         "constrains": {"minimum": 0, "maximum": 99999999},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -182,22 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.2,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please input the age"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input the age"},
         "constrains": {"minimum": 1, "maximum": 100},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -210,22 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.4,
-        "input_decoration": {
-          "min_lines": 3,
-          "max_lines": 5,
-          "max_length": 128,
-          "hint_text": "Please input the description"
-        },
+        "input_decoration": {"min_lines": 3, "max_lines": 5, "max_length": 128, "hint_text": "Please input the description"},
         "constrains": {"minimum": 1, "maximum": 100, "pattern": "\\w{128}"},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -238,22 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.2,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please input the salary"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input the salary"},
         "constrains": {"minimum": -100, "maximum": 10000},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -266,22 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.12,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please select"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please select"},
         "constrains": {"minimum": 1, "maximum": 100},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -294,22 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.3,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please input the date of marriage"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input the date of marriage"},
         "constrains": {"minimum": 1, "maximum": 100},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       },
       {
         "primary_key": false,
@@ -322,75 +191,17 @@ class _MyHomePageState extends State<MyHomePage> {
         "display": true,
         "editable": true,
         "width_factor": 0.5,
-        "input_decoration": {
-          "min_lines": 1,
-          "max_lines": 1,
-          "max_length": 128,
-          "hint_text": "Please input your last shopping time"
-        },
+        "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 128, "hint_text": "Please input your last shopping time"},
         "constrains": {"minimum": 1, "maximum": 100},
-        "style": {
-          "font_weight": "bold",
-          "font_size": 14.0,
-          "font_color": "#333333",
-          "background_color": "#b5cfd2",
-          "horizontal_alignment": "center",
-          "vertical_alignment": "center",
-          "text_align": "center"
-        }
+        "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
       }
     ],
     "rows": [
-      {
-        "id": 0,
-        "name": "Tom",
-        "age": 18,
-        "desc": "I'm Tom, Tom, Tom",
-        "salary": 1000.5,
-        "married": false,
-        "d_o_m": null,
-        "l_s_t": "2021-10-02 14:30"
-      },
-      {
-        "id": 1,
-        "name": "Sam",
-        "age": 20,
-        "desc": null,
-        "salary": 1234.5,
-        "married": false,
-        "d_o_m": null,
-        "l_s_t": "2021-06-23 11:28"
-      },
-      {
-        "id": 2,
-        "name": "Olivia",
-        "age": 25,
-        "desc": null,
-        "salary": 2500.0,
-        "married": true,
-        "d_o_m": "2020-10-01",
-        "l_s_t": "2021-01-08 20:20"
-      },
-      {
-        "id": 3,
-        "name": "Liam",
-        "age": 23,
-        "desc": null,
-        "salary": 3000.0,
-        "married": true,
-        "d_o_m": "2018-08-01",
-        "l_s_t": "2021-11-11 18:10"
-      },
-      {
-        "id": 4,
-        "name": "David",
-        "age": 26,
-        "desc": null,
-        "salary": 2300.0,
-        "married": true,
-        "d_o_m": "2019-03-05",
-        "l_s_t": "2021-12-08 21:30"
-      },
+      {"id": 0, "name": "Tom", "age": 18, "desc": "I'm Tom, Tom, Tom", "salary": 1000.5, "married": false, "d_o_m": null, "l_s_t": "2021-10-02 14:30"},
+      {"id": 1, "name": "Sam", "age": 20, "desc": null, "salary": 1234.5, "married": false, "d_o_m": null, "l_s_t": "2021-06-23 11:28"},
+      {"id": 2, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20"},
+      {"id": 3, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10"},
+      {"id": 4, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30"},
     ],
     "footer": {
       "layout_direction": "row",
@@ -399,64 +210,22 @@ class _MyHomePageState extends State<MyHomePage> {
           "title": "Average Age: 22.4",
           "display": true,
           "editable": false,
-          "input_decoration": {
-            "min_lines": 1,
-            "max_lines": 1,
-            "max_length": 64,
-            "hint_text": "Please input the sub-caption",
-            "fill_color": null
-          },
-          "style": {
-            "font_weight": "normal",
-            "font_size": 14.0,
-            "font_color": "#333333",
-            "background_color": null,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "text_align": "center"
-          }
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
         },
         {
           "title": "Married: 3",
           "display": true,
           "editable": false,
-          "input_decoration": {
-            "min_lines": 1,
-            "max_lines": 1,
-            "max_length": 64,
-            "hint_text": "Please input the sub-caption",
-            "fill_color": null
-          },
-          "style": {
-            "font_weight": "normal",
-            "font_size": 14.0,
-            "font_color": "#333333",
-            "background_color": null,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "text_align": "center"
-          }
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
         },
         {
           "title": null,
           "display": true,
           "editable": true,
-          "input_decoration": {
-            "min_lines": 1,
-            "max_lines": 1,
-            "max_length": 64,
-            "hint_text": "Please input identity",
-            "fill_color": null
-          },
-          "style": {
-            "font_weight": "normal",
-            "font_size": 14.0,
-            "font_color": "#333333",
-            "background_color": null,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "text_align": "center"
-          }
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input identity", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
         }
       ]
     }
@@ -504,6 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: EditableTable(
           key: _editableTableKey,
           data: data,
+          entity: TableEntity.fromJson(data),
           readOnly: true,
           tablePadding: EdgeInsets.all(8.0),
           captionBorder: Border(

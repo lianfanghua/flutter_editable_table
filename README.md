@@ -29,6 +29,7 @@ To create a new editable table, use the `EditableTable()` widget and provide the
 EditableTable(
   key: _editableTableKey,
   data: data,
+  // entity: TableEntity.fromJson(data),
   tablePadding: EdgeInsets.all(8.0),
   captionBorder: Border(
     top: BorderSide(color: Color(0xFF999999)),
@@ -55,6 +56,19 @@ EditableTable(
   onRowAdded: () {
     print('row added');
   },
+)
+```
+
+### Data source
+
+```dart
+// If both `data` and `entity` are provided, `entity` will be used first
+EditableTable(
+  // Use `Map<String, dynamic>` as data source
+  data: data,
+  // Use `TableEntity` as data source
+  entity: TableEntity.fromJson(data),
+  ...
 )
 ```
 
@@ -347,6 +361,24 @@ final _editableTableKey = GlobalKey<EditableTableState>();
 EditableTable(key: _editableTableKey)
 ...
 _editableTableKey.currentState?.addRow();
+```
+
+## Read Only Mode
+
+```dart
+EditableTable(
+  readOnly: true
+)
+```
+
+Dynamically change the read-only mode
+
+```dart
+final _editableTableKey = GlobalKey<EditableTableState>();
+...
+EditableTable(key: _editableTableKey)
+...
+_editableTableKey.currentState?.readOnly = true;
 ```
 
 ## Example
