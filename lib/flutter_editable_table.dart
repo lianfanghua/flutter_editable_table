@@ -215,6 +215,6 @@ class EditableTableState extends State<EditableTable> {
       _tableEntity.rows.add(RowEntity(columns: _tableEntity.columns));
       _tableEntity.updateAutoIncreaseColumn();
     });
-    if (widget.onRowAdded != null) widget.onRowAdded!;
+    if (widget.onRowAdded != null) widget.onRowAdded!();
   }
 }
