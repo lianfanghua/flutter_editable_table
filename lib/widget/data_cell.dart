@@ -252,7 +252,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       keyboardType: textInputType,
       onChanged: (String value) {
         if (value.isEmpty) return;
-        if (widget.cellEntity.columnInfo.type.toLowerCase() == 'integer') {
+        if (['integer', 'int'].contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
           final finalValue = int.tryParse(value);
           if (finalValue != null) {
             if (widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.maximum != null && finalValue > widget.cellEntity.columnInfo.constrains!.maximum!) {
@@ -264,7 +264,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             widget.cellEntity.value = 0;
             _textEditingController.text = 0.toString();
           }
-        } else if (widget.cellEntity.columnInfo.type.toLowerCase() == 'float') {
+        } else if (['float', 'double', 'decimal'].contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
           final finalValue = double.tryParse(value);
           if (finalValue != null) {
             if (widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.maximum != null && finalValue > widget.cellEntity.columnInfo.constrains!.maximum!) {
