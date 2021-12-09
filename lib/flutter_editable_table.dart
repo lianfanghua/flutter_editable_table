@@ -38,6 +38,7 @@ class EditableTable extends StatefulWidget {
     this.removeRowIconPadding,
     this.removeRowIconAlignment,
     this.removeRowIconContainerBackgroundColor,
+    this.showAddRow = true,
     this.addRowIcon,
     this.addRowIconPadding,
     this.addRowIconAlignment,
@@ -84,6 +85,7 @@ class EditableTable extends StatefulWidget {
   final Color? removeRowIconContainerBackgroundColor;
 
   /// Operation Row Config
+  final bool showAddRow;
   final Widget? addRowIcon;
   final EdgeInsetsGeometry? addRowIconPadding;
   final Alignment? addRowIconAlignment;
@@ -178,7 +180,7 @@ class EditableTableState extends State<EditableTable> {
                   if (widget.onRowRemoved != null) widget.onRowRemoved!(row);
                 },
               ),
-            if (_tableEntity.addable)
+            if (_tableEntity.addable && widget.showAddRow)
               EditableTableOperationRow(
                 rowWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 rowBorder: widget.rowBorder,
