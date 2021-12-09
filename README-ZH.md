@@ -1,19 +1,19 @@
 # flutter_editable_table
 
-Language: [English](README.md) | [简体中文](README-ZH.md)
+文档语言: [English](README.md) | [简体中文](README-ZH.md)
 
-A flutter package providing customizable and editable table from json.
+根据json数据，构造可编辑、高自定义表格的组件
 
-## Getting started
+## 如何使用
 
-* add library to your pubspec.yaml
+* 在`pubspec.yaml`中增加依赖
 
 ```yaml
 dependencies:
   flutter_editable_table: any
 ```
 
-* import library in dart file
+* 导入库
 
 ```dart
 import 'package:flutter_editable_table/flutter_editable_table.dart';
@@ -23,7 +23,7 @@ import 'package:flutter_editable_table/flutter_editable_table.dart';
 
 ### 创建表格
 
-To create a new editable table, use the `EditableTable()` widget and provide the json data as follows.
+利用`EditableTable()`，即可快速创建可编辑表格
 
 ```dart
 EditableTable(
@@ -58,35 +58,35 @@ EditableTable(
 )
 ```
 
-### Data Interpretation
+### 数据解释
 
 ```json5
 {
-  "column_count": null, // Number of columns (the number of columns that are automatically created when [columns] is empty, [column_count] and [columns] are both empty at the same time, 1 column will be created)
-  "row_count": null, // Number of rows (the number of rows created automatically when [rows] is empty, and 1 row will be created if both [row_count] and [rows] are empty at the same time)
-  "addable": true, // Allow add new row
-  "removable": true, // Allow remove row
-  "caption": { // Table caption
-    "layout_direction": "row", // Caption layout direction, support [row] and [column]
-    "main_caption": { // Main caption
-      "title": "Caption", // Caption title for display
-      "display": true, // Specify the caption display or not
-      "editable": false, // Specify the caption is editable, if [true], the caption will show as [TextFormField]
-      "input_decoration": { // [TextFormField] arguments，if [editable] is [true], the argument will take effect
-        "min_lines": 1, // Same as [TextFormField] [minLines]
-        "max_lines": 1, // Same as [TextFormField] [maxLines]
-        "max_length": 64, // Same as [TextFormField]的 maxLength]
-        "hint_text": "Please input the caption", // Same as [TextFormField] [hintText]
-        "fill_color": null // Same as [TextFormField] [fillColor]
+  "column_count": null, // 列数量（当[columns]为空时自动创建列的数量，[column_count]和[columns]同时为空，会创建1列）
+  "row_count": null, // 行数量（当[rows]为空时自动创建行的数量，[row_count]和[rows]同时为空，会创建1行）
+  "addable": true, // 是否允许新增行
+  "removable": true, // 是否允许删除行
+  "caption": { // 标题
+    "layout_direction": "row", // 标题布局方式，支持[row]和[column]
+    "main_caption": { // 主标题
+      "title": "Caption", // 标题内容
+      "display": true, // 是否显示
+      "editable": false, // 是否可编辑，为[true]时通过[TextFormField]显示
+      "input_decoration": { // [TextFormField]的参数，[editable]为[true]时有效
+        "min_lines": 1, // [TextFormField]的[minLines]
+        "max_lines": 1, // [TextFormField]的[maxLines]
+        "max_length": 64, // [TextFormField]的[maxLength]
+        "hint_text": "Please input the caption", // [TextFormField]的[hintText]
+        "fill_color": null // [TextFormField]的[fillColor]
       },
-      "style": { // Text style, basically the same as [TextStyle]
+      "style": { // 样式，基本与[TextStyle]相同
         "font_weight": "bold",
         "font_size": 18.0,
-        "font_color": "#333333", // Font color, format is `#RRGGBB`
-        "background_color": null, // The background color of the text container [color]
-        "horizontal_alignment": "center", // The alignment of the text container [alignment]，see `lib/constants.dart` - `editableHorizontalAlignment`
-        "vertical_alignment": "center", // Vertical alignment, not work now
-        "text_align": "center" // The text align, same as [Text] [textAlign], see `lib/constants.dart` -`editableCellTextAlign`
+        "font_color": "#333333", // 文字颜色`#RRGGBB`
+        "background_color": null, // 文字所在容器的背景颜色[color]
+        "horizontal_alignment": "center", // 文字所在容器的对齐方式[alignment]，支持内容见`lib/constants.dart`的`editableHorizontalAlignment`
+        "vertical_alignment": "center", // 垂直对齐方式，暂不起作用
+        "text_align": "center" // 文字的对齐方式，与[Text]的[textAlign]相同，支持内容见`lib/constants.dart`的`editableCellTextAlign`
       }
     },
     "sub_caption": {
@@ -97,35 +97,35 @@ EditableTable(
       "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
     }
   },
-  "columns": [ // Column
+  "columns": [ // 列
     {
-      "primary_key": true, // Specify the row is  primary key or not, just for specify the data identification, it has no effect on the structure and display of the table
+      "primary_key": true, // 是否主键，只是为了进行数据标识，对表格的构造与显示不起作用
       "auto_increase": false,
-      "name": "id", // Key of the rows data, see [rows]
-      "title": null, // Column name for display
-      "type": "int", // Column data type, to specifies how to convert the value after edit(if the type is integer/float, the value will be [minimum] in [constrains] when convert failed)
+      "name": "id", // 数据映射的标识，与[rows]的[key]映射
+      "title": null, // 列名，用于在表头中显示
+      "type": "int", // 列数据类型，编辑后的数据会根据该类型进行转换（数字类型转换失败会返回[constrains]最小值）
       "format": null,
-      "description": null, // Column description, if not [null] or blank, it will display a tooltip with this description when `Long Press` the header
+      "description": null, // 列描述，不为null或者空字符串时，长按表头会显示该提示
       "display": false,
       "editable": false,
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
-      "constrains": { // [TextFormField] constrains, when [type] is int/float, and [editable] is [true], it will take effect
-        "minimum": 0, // The minimum value to input, when input less then this value will replaced with this value(it will affect the keyboard type)
-        "maximum": 99999999 // The maximum value to input, when input grater then this value will replaced with this value
+      "constrains": { // 输入内容约束，[editable]为[true]时有效
+        "minimum": 0, // 输入最小值，输入小于该值会被替换为该值（同时影响键盘行为）
+        "maximum": 99999999 // 输入最大值，输入大于该值会被替换为该值
       },
       "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
     },
     {
       "primary_key": false,
-      "auto_increase": true, // Specify this column is increase automatically or not, use in conjunction with [format]
+      "auto_increase": true, // 是否自增，与[format]联合使用
       "name": null,
       "title": null,
       "type": "int",
-      "format": "Step __VALUE__", // The display format of the auto-increase data, the number will replace [__VALUE__]
+      "format": "Step __VALUE__", // 自增数据的显示格式，自增数会替换[__VALUE__]
       "description": null,
       "display": true,
       "editable": false,
-      "width_factor": 0.2, // Column width factor, calculated according to the screen percentage, if the sum of all columns is greater than 1, the table will exceed the screen, and the table supports horizontal sliding
+      "width_factor": 0.2, // 列宽，根据屏幕百分比计算，所有列之和大于1，表会超出屏幕，表格支持水平滑动
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
       "constrains": {"minimum": 0, "maximum": 99999999},
       "style": {"font_weight": "bold", "font_size": 14.0, "font_color": "#333333", "background_color": "#b5cfd2", "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
@@ -135,7 +135,7 @@ EditableTable(
       "auto_increase": false,
       "name": "name",
       "title": "Name",
-      "type": "string", // Data types support [integer/int], [float/double/decimal], [bool], [date], [datetime], [string], different types have different interaction behaviors and keyboard
+      "type": "string", // 数据类型支持[integer/int]，[float/double/decimal]，[bool]，[date]，[datetime]，[string]，不同类型会有不同交互行为和键盘
       "format": null,
       "description": "User Name",
       "display": true,
@@ -243,9 +243,9 @@ EditableTable(
     {"id": 3, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10"},
     {"id": 4, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30"},
   ],
-  "footer": { // Table footer
-    "layout_direction": "row", // Table footer layout direction, support [row] and [column]
-    "content": [ // Content in table footer, it will be lay out according to [layout_direction]
+  "footer": { // 汇总行
+    "layout_direction": "row", // 汇总行布局方式，支持[row]和[column]
+    "content": [ // 汇总行的内容，与[main_caption]类似
       {
         "title": "Average Age: 22.4",
         "display": true,
@@ -272,7 +272,7 @@ EditableTable(
 }
 ```
 
-### Customization
+### 自定义
 
 ```dart
   final EdgeInsetsGeometry? tablePadding; 
@@ -292,7 +292,7 @@ EditableTable(
   final EdgeInsetsGeometry? headerContentPadding;
 
   /// Body Config
-  final bool showAddRow; // Display the operation row or not
+  final bool showAddRow; // 是否显示增加操作行
   final Border? rowBorder;
   final EdgeInsetsGeometry? cellContentPadding;
   final TextStyle? cellTextStyle;
@@ -321,7 +321,7 @@ EditableTable(
   final InputBorder? footerInputDecorationFocusBorder;
 ```
 
-### Callback
+### 回调
 
 ```dart
   /// Callback
@@ -329,7 +329,7 @@ EditableTable(
   final VoidCallback? onRowAdded;
 ```
 
-## Get Data
+## 获取数据
 
 ```dart
 final _editableTableKey = GlobalKey<EditableTableState>();
@@ -339,7 +339,7 @@ EditableTable(key: _editableTableKey)
 print(_editableTableKey.currentState?.currentData);
 ```
 
-## Add Row
+## 增加行
 
 ```dart
 final _editableTableKey = GlobalKey<EditableTableState>();
@@ -349,6 +349,6 @@ EditableTable(key: _editableTableKey)
 _editableTableKey.currentState?.addRow();
 ```
 
-## Example
+## 例子
 
-See [Example](example/lib/main.dart)
+更多信息请见：[例子](example/lib/main.dart)
