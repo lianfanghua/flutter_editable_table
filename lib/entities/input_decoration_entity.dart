@@ -12,7 +12,8 @@ class InputDecorationEntity {
     this.fillColor,
   });
 
-  factory InputDecorationEntity.fromJson(Map<String, dynamic> jsonRes) => InputDecorationEntity(
+  factory InputDecorationEntity.fromJson(Map<String, dynamic> jsonRes) =>
+      InputDecorationEntity(
         minLines: asT<int?>(jsonRes['min_lines']),
         maxLines: asT<int?>(jsonRes['max_lines']),
         maxLength: asT<int?>(jsonRes['max_length']),

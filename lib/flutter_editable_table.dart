@@ -15,7 +15,8 @@ import 'widget/header.dart';
 class EditableTable extends StatefulWidget {
   const EditableTable({
     Key? key,
-    required this.data,
+    this.data,
+    this.entity,
     this.tablePadding,
     this.captionBorder,
     this.captionPadding,
@@ -52,9 +53,16 @@ class EditableTable extends StatefulWidget {
     this.footerInputDecorationFocusBorder,
     this.onRowRemoved,
     this.onRowAdded,
-  }) : super(key: key);
+    this.readOnly = false,
+  })  : assert(data != null || entity != null,
+            'data and entity cannot both be null'),
+        super(key: key);
 
-  final Map<String, dynamic> data;
+  /// Data Source
+  final Map<String, dynamic>? data;
+  final TableEntity? entity;
+
+  /// Table Config
   final EdgeInsetsGeometry? tablePadding;
 
   /// Caption Config
@@ -104,34 +112,52 @@ class EditableTable extends StatefulWidget {
   final ValueChanged<RowEntity>? onRowRemoved;
   final VoidCallback? onRowAdded;
 
+  /// Main Control
+  final bool readOnly;
+
   @override
   EditableTableState createState() => EditableTableState();
 }
 
 class EditableTableState extends State<EditableTable> {
   late final TableEntity _tableEntity;
-  late final double _tableWidth;
+  late bool _readOnly;
 
   TableEntity get currentData => _tableEntity;
 
+  set readOnly(bool value) {
+    setState(() {
+      _readOnly = value;
+    });
+  }
+
+  double get _tablePadding =>
+      widget.tablePadding != null && widget.tablePadding is EdgeInsets
+          ? ((widget.tablePadding as EdgeInsets).left +
+              (widget.tablePadding as EdgeInsets).right)
+          : 0.0;
+
   @override
   void initState() {
-    _tableEntity = TableEntity.fromJson(widget.data);
-    final screenWidth = window.physicalSize.width / window.devicePixelRatio;
-    final tablePadding = widget.tablePadding != null && widget.tablePadding is EdgeInsets ? ((widget.tablePadding as EdgeInsets).left + (widget.tablePadding as EdgeInsets).right) : 0.0;
-    _tableWidth = _tableEntity.columns.where((column) => column.display).map((column) => column.widthFactor * screenWidth).reduce((value, element) => value + element) - tablePadding + (_tableEntity.removable ? 32.0 : 0.0);
+    _readOnly = widget.readOnly;
+    _tableEntity = widget.entity ?? TableEntity.fromJson(widget.data!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final tableWidth = _tableEntity.columns
+            .where((column) => column.display)
+            .map((column) =>
+                column.widthFactor * MediaQuery.of(context).size.width)
+            .reduce((value, element) => value + element) -
+        _tablePadding +
+        (!_readOnly && _tableEntity.removable ? 32.0 : 0.0);
     return SingleChildScrollView(
       padding: widget.tablePadding,
       scrollDirection: Axis.horizontal,
       child: Container(
-        constraints: BoxConstraints(
-          maxWidth: _tableWidth,
-        ),
+        constraints: BoxConstraints(maxWidth: tableWidth),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,19 +165,24 @@ class EditableTableState extends State<EditableTable> {
             if (_tableEntity.captionLayout != null)
               EditableTableCaption(
                 captionLayoutEntity: _tableEntity.captionLayout!,
-                captionWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                captionWidth: tableWidth -
+                    (!_readOnly && _tableEntity.removable ? 32.0 : 0.0),
                 captionPadding: widget.captionPadding,
                 captionBorder: widget.captionBorder,
                 captionTextStyle: widget.captionTextStyle,
                 captionHintTextStyle: widget.captionHintTextStyle,
-                captionInputDecorationContentPadding: widget.captionInputDecorationContentPadding,
+                captionInputDecorationContentPadding:
+                    widget.captionInputDecorationContentPadding,
                 captionInputDecorationBorder: widget.captionTextFieldBorder,
-                captionInputDecorationFocusBorder: widget.captionTextFieldFocusBorder,
+                captionInputDecorationFocusBorder:
+                    widget.captionTextFieldFocusBorder,
+                readOnly: _readOnly,
               ),
             if (_tableEntity.columns.isNotEmpty)
               EditableTableHeader(
                 columnsEntity: _tableEntity.columns,
-                headerWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                headerWidth: tableWidth -
+                    (!_readOnly && _tableEntity.removable ? 32.0 : 0.0),
                 headerBorder: widget.headerBorder,
                 headerTextStyle: widget.headerTextStyle,
                 headerContentPadding: widget.headerContentPadding,
@@ -160,18 +191,21 @@ class EditableTableState extends State<EditableTable> {
               EditableTableBody(
                 bodyEntity: _tableEntity.rows,
                 removable: _tableEntity.removable,
-                rowWidth: _tableWidth,
+                rowWidth: tableWidth + (_readOnly ? 32.0 : 0.0),
                 rowBorder: widget.rowBorder,
                 cellTextStyle: widget.cellTextStyle,
                 cellContentPadding: widget.cellContentPadding,
                 cellHintTextStyle: widget.cellHintTextStyle,
-                cellInputDecorationContentPadding: widget.cellInputDecorationContentPadding,
+                cellInputDecorationContentPadding:
+                    widget.cellInputDecorationContentPadding,
                 cellInputDecorationBorder: widget.cellInputDecorationBorder,
-                cellInputDecorationFocusBorder: widget.cellInputDecorationFocusBorder,
+                cellInputDecorationFocusBorder:
+                    widget.cellInputDecorationFocusBorder,
                 removeRowIcon: widget.removeRowIcon,
                 removeRowIconPadding: widget.removeRowIconPadding,
                 removeRowIconAlignment: widget.removeRowIconAlignment,
-                removeRowIconContainerBackgroundColor: widget.removeRowIconContainerBackgroundColor,
+                removeRowIconContainerBackgroundColor:
+                    widget.removeRowIconContainerBackgroundColor,
                 onRowRemoved: (RowEntity row) {
                   setState(() {
                     _tableEntity.rows.remove(row);
@@ -179,30 +213,39 @@ class EditableTableState extends State<EditableTable> {
                   });
                   if (widget.onRowRemoved != null) widget.onRowRemoved!(row);
                 },
+                readOnly: _readOnly,
               ),
-            if (_tableEntity.addable && widget.showAddRow)
+            if (!_readOnly && _tableEntity.addable && widget.showAddRow)
               EditableTableOperationRow(
-                rowWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                rowWidth: tableWidth -
+                    (!_readOnly && _tableEntity.removable ? 32.0 : 0.0),
                 rowBorder: widget.rowBorder,
                 addRowIcon: widget.addRowIcon,
                 addRowIconPadding: widget.addRowIconPadding,
                 addRowIconAlignment: widget.addRowIconAlignment,
-                addRowIconContainerBackgroundColor: widget.addRowIconContainerBackgroundColor,
+                addRowIconContainerBackgroundColor:
+                    widget.addRowIconContainerBackgroundColor,
                 onRowAdded: () {
                   addRow();
                 },
               ),
-            if (_tableEntity.footerLayout != null && _tableEntity.footerLayout!.footerContent != null && _tableEntity.footerLayout!.footerContent!.isNotEmpty)
+            if (_tableEntity.footerLayout != null &&
+                _tableEntity.footerLayout!.footerContent != null &&
+                _tableEntity.footerLayout!.footerContent!.isNotEmpty)
               EditableTableFooter(
                 footerLayoutEntity: _tableEntity.footerLayout!,
-                footerWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                footerWidth: tableWidth -
+                    (!_readOnly && _tableEntity.removable ? 32.0 : 0.0),
                 footerPadding: widget.footerPadding,
                 footerBorder: widget.footerBorder,
                 footerTextStyle: widget.footerTextStyle,
                 footerHintTextStyle: widget.footerHintTextStyle,
-                footerInputDecorationContentPadding: widget.footerInputDecorationContentPadding,
+                footerInputDecorationContentPadding:
+                    widget.footerInputDecorationContentPadding,
                 footerInputDecorationBorder: widget.footerInputDecorationBorder,
-                footerInputDecorationFocusBorder: widget.footerInputDecorationFocusBorder,
+                footerInputDecorationFocusBorder:
+                    widget.footerInputDecorationFocusBorder,
+                readOnly: _readOnly,
               ),
           ],
         ),

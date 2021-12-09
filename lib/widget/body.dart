@@ -21,6 +21,7 @@ class EditableTableBody extends StatefulWidget {
     this.removeRowIconAlignment,
     this.removeRowIconContainerBackgroundColor,
     this.onRowRemoved,
+    this.readOnly = false,
   }) : super(key: key);
 
   final List<RowEntity> bodyEntity;
@@ -40,6 +41,8 @@ class EditableTableBody extends StatefulWidget {
 
   final ValueChanged<RowEntity>? onRowRemoved;
 
+  final bool readOnly;
+
   @override
   _EditableTableBodyState createState() => _EditableTableBodyState();
 }
@@ -57,16 +60,20 @@ class _EditableTableBodyState extends State<EditableTableBody> {
               rowWidth: widget.rowWidth,
               rowBorder: widget.rowBorder,
               cellContentPadding: widget.cellContentPadding,
-              cellInputDecorationContentPadding: widget.cellInputDecorationContentPadding,
+              cellInputDecorationContentPadding:
+                  widget.cellInputDecorationContentPadding,
               cellHintTextStyle: widget.cellHintTextStyle,
               cellInputDecorationBorder: widget.cellInputDecorationBorder,
-              cellInputDecorationFocusBorder: widget.cellInputDecorationFocusBorder,
+              cellInputDecorationFocusBorder:
+                  widget.cellInputDecorationFocusBorder,
               cellTextStyle: widget.cellTextStyle,
               removeRowIcon: widget.removeRowIcon,
               removeRowIconPadding: widget.removeRowIconPadding,
               removeRowIconAlignment: widget.removeRowIconAlignment,
-              removeRowIconContainerBackgroundColor: widget.removeRowIconContainerBackgroundColor,
+              removeRowIconContainerBackgroundColor:
+                  widget.removeRowIconContainerBackgroundColor,
               onRowRemoved: widget.onRowRemoved,
+              readOnly: widget.readOnly,
             ),
           )
           .toList(),

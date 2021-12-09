@@ -15,6 +15,7 @@ class EditableTableCaption extends StatefulWidget {
     this.captionInputDecorationContentPadding,
     this.captionInputDecorationBorder,
     this.captionInputDecorationFocusBorder,
+    this.readOnly = false,
   }) : super(key: key);
 
   final CaptionLayoutEntity captionLayoutEntity;
@@ -26,6 +27,7 @@ class EditableTableCaption extends StatefulWidget {
   final EdgeInsetsGeometry? captionInputDecorationContentPadding;
   final InputBorder? captionInputDecorationBorder;
   final InputBorder? captionInputDecorationFocusBorder;
+  final bool readOnly;
 
   @override
   _EditableTableCaptionState createState() => _EditableTableCaptionState();
@@ -43,7 +45,9 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildCaption(widget.captionLayoutEntity.mainCaption),
-                if (widget.captionLayoutEntity.mainCaption != null && widget.captionLayoutEntity.subCaption != null) SizedBox(width: 8.0),
+                if (widget.captionLayoutEntity.mainCaption != null &&
+                    widget.captionLayoutEntity.subCaption != null)
+                  SizedBox(width: 8.0),
                 _buildCaption(widget.captionLayoutEntity.subCaption),
               ],
             )
@@ -51,7 +55,9 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildCaption(widget.captionLayoutEntity.mainCaption),
-                if (widget.captionLayoutEntity.mainCaption != null && widget.captionLayoutEntity.subCaption != null) SizedBox(height: 8.0),
+                if (widget.captionLayoutEntity.mainCaption != null &&
+                    widget.captionLayoutEntity.subCaption != null)
+                  SizedBox(height: 8.0),
                 _buildCaption(widget.captionLayoutEntity.subCaption),
               ],
             ),
@@ -61,7 +67,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
   Widget _buildCaption(CaptionEntity? captionEntity) {
     if (captionEntity == null) return SizedBox();
     return captionEntity.display
-        ? (captionEntity.editable
+        ? (!widget.readOnly && captionEntity.editable
             ? Flexible(
                 child: Container(
                   color: captionEntity.style?.backgroundColor,
@@ -72,7 +78,9 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                     maxLength: captionEntity.inputDecoration?.maxLength,
                     decoration: InputDecoration(
                       isDense: true,
-                      contentPadding: widget.captionInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+                      contentPadding:
+                          widget.captionInputDecorationContentPadding ??
+                              EdgeInsets.all(8.0),
                       hintText: captionEntity.inputDecoration?.hintText,
                       hintStyle: widget.captionHintTextStyle,
                       hintMaxLines: captionEntity.inputDecoration?.maxLines,
@@ -83,7 +91,8 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                               color: Theme.of(context).dividerColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       focusedBorder: widget.captionInputDecorationFocusBorder ??
                           OutlineInputBorder(
@@ -91,7 +100,8 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                               color: Theme.of(context).primaryColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       filled: captionEntity.inputDecoration?.fillColor != null,
                       fillColor: captionEntity.inputDecoration?.fillColor,
@@ -102,7 +112,8 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                               fontWeight: captionEntity.style?.fontWeight,
                               color: captionEntity.style?.fontColor,
                             ),
-                    keyboardAppearance: MediaQuery.of(context).platformBrightness,
+                    keyboardAppearance:
+                        MediaQuery.of(context).platformBrightness,
                     onChanged: (value) {
                       captionEntity.title = value;
                     },
@@ -111,7 +122,11 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
               )
             : Container(
                 color: captionEntity.style?.backgroundColor,
-                width: widget.captionLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.captionWidth : null,
+                width:
+                    widget.captionLayoutEntity.layoutDirection.toLowerCase() ==
+                            'column'
+                        ? widget.captionWidth
+                        : null,
                 alignment: captionEntity.style?.horizontalAlignment,
                 child: Text(
                   captionEntity.title ?? '',

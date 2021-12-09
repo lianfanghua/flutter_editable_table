@@ -17,8 +17,14 @@ class FooterEntity {
         title: asT<String?>(jsonRes['title']),
         display: asT<bool?>(jsonRes['display']) ?? true,
         editable: asT<bool?>(jsonRes['editable']) ?? true,
-        inputDecoration: jsonRes['input_decoration'] == null ? null : InputDecorationEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['input_decoration'])!),
-        style: jsonRes['style'] == null ? null : StyleEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['style'])!),
+        inputDecoration: jsonRes['input_decoration'] == null
+            ? null
+            : InputDecorationEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['input_decoration'])!),
+        style: jsonRes['style'] == null
+            ? null
+            : StyleEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['style'])!),
       );
 
   String? title;

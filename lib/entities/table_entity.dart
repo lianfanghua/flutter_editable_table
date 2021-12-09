@@ -26,13 +26,16 @@ class TableEntity {
       for (final dynamic item in jsonRes['columns']!) {
         if (item != null) {
           tryCatch(() {
-            columns.add(ColumnEntity.fromJson(asT<Map<String, dynamic>>(item)!));
+            columns
+                .add(ColumnEntity.fromJson(asT<Map<String, dynamic>>(item)!));
           });
         }
       }
     }
     if (columns.isEmpty) {
-      for (var i = 0; i < (columnCount != null ? (columnCount > 0 ? columnCount : 1) : 1); ++i) {
+      for (var i = 0;
+          i < (columnCount != null ? (columnCount > 0 ? columnCount : 1) : 1);
+          ++i) {
         columns.add(ColumnEntity(name: '$defaultColumnPrefix$i'));
       }
     }
@@ -42,13 +45,16 @@ class TableEntity {
       for (final dynamic item in jsonRes['rows']!) {
         if (item != null) {
           tryCatch(() {
-            rows.add(RowEntity.fromJson(asT<Map<String, dynamic>>(item)!, columns));
+            rows.add(
+                RowEntity.fromJson(asT<Map<String, dynamic>>(item)!, columns));
           });
         }
       }
     }
     if (rows.isEmpty) {
-      for (var i = 0; i < (rowCount != null ? (rowCount > 0 ? rowCount : 1) : 1); ++i) {
+      for (var i = 0;
+          i < (rowCount != null ? (rowCount > 0 ? rowCount : 1) : 1);
+          ++i) {
         rows.add(RowEntity(columns: columns));
       }
     }
@@ -56,7 +62,8 @@ class TableEntity {
       for (var i = 0; i < rows.length; ++i) {
         rows[i].cells?.forEach((cell) {
           if (cell.columnInfo.autoIncrease) {
-            cell.value = cell.columnInfo.format?.replaceAll(defaultFormatValueSlot, (i + 1).toString());
+            cell.value = cell.columnInfo.format
+                ?.replaceAll(defaultFormatValueSlot, (i + 1).toString());
           }
         });
       }
@@ -66,10 +73,16 @@ class TableEntity {
       rowCount: rowCount,
       addable: asT<bool?>(jsonRes['addable']) ?? false,
       removable: asT<bool?>(jsonRes['removable']) ?? false,
-      captionLayout: jsonRes['caption'] == null ? null : CaptionLayoutEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['caption'])!),
+      captionLayout: jsonRes['caption'] == null
+          ? null
+          : CaptionLayoutEntity.fromJson(
+              asT<Map<String, dynamic>>(jsonRes['caption'])!),
       columns: columns,
       rows: rows,
-      footerLayout: jsonRes['footer'] == null ? null : FooterLayoutEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['footer'])!),
+      footerLayout: jsonRes['footer'] == null
+          ? null
+          : FooterLayoutEntity.fromJson(
+              asT<Map<String, dynamic>>(jsonRes['footer'])!),
     );
   }
 
@@ -116,7 +129,8 @@ class TableEntity {
       for (var i = 0; i < rows.length; ++i) {
         rows[i].cells?.forEach((cell) {
           if (cell.columnInfo.autoIncrease) {
-            cell.value = cell.columnInfo.format?.replaceAll(defaultFormatValueSlot, (i + 1).toString());
+            cell.value = cell.columnInfo.format
+                ?.replaceAll(defaultFormatValueSlot, (i + 1).toString());
           }
         });
       }

@@ -15,6 +15,7 @@ class EditableTableFooter extends StatefulWidget {
     this.footerInputDecorationContentPadding,
     this.footerInputDecorationBorder,
     this.footerInputDecorationFocusBorder,
+    this.readOnly = false,
   }) : super(key: key);
 
   final FooterLayoutEntity footerLayoutEntity;
@@ -27,6 +28,8 @@ class EditableTableFooter extends StatefulWidget {
   final InputBorder? footerInputDecorationBorder;
   final InputBorder? footerInputDecorationFocusBorder;
 
+  final bool readOnly;
+
   @override
   _EditableTableFooterState createState() => _EditableTableFooterState();
 }
@@ -36,7 +39,9 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
 
   @override
   void initState() {
-    _displayFooters = widget.footerLayoutEntity.footerContent!.where((footer) => footer.display).toList(growable: false);
+    _displayFooters = widget.footerLayoutEntity.footerContent!
+        .where((footer) => footer.display)
+        .toList(growable: false);
     super.initState();
   }
 
@@ -44,9 +49,14 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.footerWidth,
-      padding: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? (widget.footerPadding ?? EdgeInsets.all(8.0)) : null,
+      padding:
+          widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column'
+              ? (widget.footerPadding ?? EdgeInsets.all(8.0))
+              : null,
       decoration: BoxDecoration(
-        border: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' && widget.footerBorder != null
+        border: widget.footerLayoutEntity.layoutDirection.toLowerCase() ==
+                    'column' &&
+                widget.footerBorder != null
             ? Border(
                 left: widget.footerBorder!.left,
                 right: widget.footerBorder!.right,
@@ -57,12 +67,20 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
       child: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'row'
           ? IntrinsicHeight(
               child: Row(
-                children: _displayFooters.asMap().entries.map((e) => _buildRowItem(e.value, e.key)).toList(growable: false),
+                children: _displayFooters
+                    .asMap()
+                    .entries
+                    .map((e) => _buildRowItem(e.value, e.key))
+                    .toList(growable: false),
               ),
             )
           : Column(
               mainAxisSize: MainAxisSize.min,
-              children: _displayFooters.asMap().entries.map((e) => _buildColumnItem(e.value, e.key)).toList(growable: false),
+              children: _displayFooters
+                  .asMap()
+                  .entries
+                  .map((e) => _buildColumnItem(e.value, e.key))
+                  .toList(growable: false),
             ),
     );
   }
@@ -70,10 +88,12 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
   Widget _buildColumnItem(FooterEntity? footerEntity, int index) {
     if (footerEntity == null) return SizedBox();
     return footerEntity.display
-        ? (footerEntity.editable
+        ? (!widget.readOnly && footerEntity.editable
             ? Flexible(
                 child: Container(
-                  padding: index != _displayFooters.length - 1 ? EdgeInsets.only(bottom: 8.0) : null,
+                  padding: index != _displayFooters.length - 1
+                      ? EdgeInsets.only(bottom: 8.0)
+                      : null,
                   color: footerEntity.style?.backgroundColor,
                   child: TextFormField(
                     initialValue: footerEntity.title,
@@ -82,7 +102,9 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                     maxLength: footerEntity.inputDecoration?.maxLength,
                     decoration: InputDecoration(
                       isDense: true,
-                      contentPadding: widget.footerInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+                      contentPadding:
+                          widget.footerInputDecorationContentPadding ??
+                              EdgeInsets.all(8.0),
                       hintText: footerEntity.inputDecoration?.hintText,
                       hintStyle: widget.footerHintTextStyle,
                       hintMaxLines: footerEntity.inputDecoration?.maxLines,
@@ -93,7 +115,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               color: Theme.of(context).dividerColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       focusedBorder: widget.footerInputDecorationFocusBorder ??
                           OutlineInputBorder(
@@ -101,7 +124,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               color: Theme.of(context).primaryColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       filled: footerEntity.inputDecoration?.fillColor != null,
                       fillColor: footerEntity.inputDecoration?.fillColor,
@@ -112,7 +136,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
                             ),
-                    keyboardAppearance: MediaQuery.of(context).platformBrightness,
+                    keyboardAppearance:
+                        MediaQuery.of(context).platformBrightness,
                     onChanged: (value) {
                       footerEntity.title = value;
                     },
@@ -122,8 +147,14 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
             : Flexible(
                 child: Container(
                   color: footerEntity.style?.backgroundColor,
-                  width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
-                  padding: index != _displayFooters.length - 1 ? EdgeInsets.only(bottom: 8.0) : null,
+                  width:
+                      widget.footerLayoutEntity.layoutDirection.toLowerCase() ==
+                              'column'
+                          ? widget.footerWidth
+                          : null,
+                  padding: index != _displayFooters.length - 1
+                      ? EdgeInsets.only(bottom: 8.0)
+                      : null,
                   alignment: footerEntity.style?.horizontalAlignment,
                   child: Text(
                     footerEntity.title ?? '',
@@ -143,10 +174,11 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
   Widget _buildRowItem(FooterEntity? footerEntity, int index) {
     if (footerEntity == null) return SizedBox();
     return footerEntity.display
-        ? (footerEntity.editable
+        ? (!widget.readOnly && footerEntity.editable
             ? Flexible(
                 child: Container(
-                  padding: widget.footerPadding ?? EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: widget.footerPadding ??
+                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     border: index == 0
                         ? (widget.footerBorder != null
@@ -171,7 +203,9 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                     maxLength: footerEntity.inputDecoration?.maxLength,
                     decoration: InputDecoration(
                       isDense: true,
-                      contentPadding: widget.footerInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+                      contentPadding:
+                          widget.footerInputDecorationContentPadding ??
+                              EdgeInsets.all(8.0),
                       hintText: footerEntity.inputDecoration?.hintText,
                       hintStyle: widget.footerHintTextStyle,
                       hintMaxLines: footerEntity.inputDecoration?.maxLines,
@@ -182,7 +216,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               color: Theme.of(context).dividerColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       focusedBorder: widget.footerInputDecorationFocusBorder ??
                           OutlineInputBorder(
@@ -190,7 +225,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               color: Theme.of(context).primaryColor,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
                           ),
                       filled: footerEntity.inputDecoration?.fillColor != null,
                       fillColor: footerEntity.inputDecoration?.fillColor,
@@ -201,7 +237,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
                             ),
-                    keyboardAppearance: MediaQuery.of(context).platformBrightness,
+                    keyboardAppearance:
+                        MediaQuery.of(context).platformBrightness,
                     onChanged: (value) {
                       footerEntity.title = value;
                     },
@@ -210,7 +247,11 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
               )
             : Flexible(
                 child: Container(
-                  width: widget.footerLayoutEntity.layoutDirection.toLowerCase() == 'column' ? widget.footerWidth : null,
+                  width:
+                      widget.footerLayoutEntity.layoutDirection.toLowerCase() ==
+                              'column'
+                          ? widget.footerWidth
+                          : null,
                   padding: widget.footerPadding ?? EdgeInsets.all(8.0),
                   alignment: footerEntity.style?.horizontalAlignment,
                   decoration: BoxDecoration(

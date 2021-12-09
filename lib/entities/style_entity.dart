@@ -17,12 +17,16 @@ class StyleEntity {
   });
 
   factory StyleEntity.fromJson(Map<String, dynamic> jsonRes) => StyleEntity(
-        fontWeight: editableCellFontWeight[asT<String?>(jsonRes['font_weight']) ?? 'normal'],
+        fontWeight: editableCellFontWeight[
+            asT<String?>(jsonRes['font_weight']) ?? 'normal'],
         fontSize: asT<double?>(jsonRes['font_size']),
         fontColor: hexStringToColor(asT<String?>(jsonRes['font_color'])),
-        backgroundColor: hexStringToColor(asT<String?>(jsonRes['background_color'])),
-        horizontalAlignment: editableHorizontalAlignment[asT<String?>(jsonRes['horizontal_alignment'])],
-        verticalAlignment: editableCellVerticalAlignment[asT<String?>(jsonRes['vertical_alignment'])],
+        backgroundColor:
+            hexStringToColor(asT<String?>(jsonRes['background_color'])),
+        horizontalAlignment: editableHorizontalAlignment[
+            asT<String?>(jsonRes['horizontal_alignment'])],
+        verticalAlignment: editableCellVerticalAlignment[
+            asT<String?>(jsonRes['vertical_alignment'])],
         textAlign: editableCellTextAlign[asT<String?>(jsonRes['text_align'])],
       );
 
@@ -40,13 +44,21 @@ class StyleEntity {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'font_weight': editableCellFontWeight.keys.firstWhere((key) => editableCellFontWeight[key] == fontWeight, orElse: () => 'normal'),
+        'font_weight': editableCellFontWeight.keys.firstWhere(
+            (key) => editableCellFontWeight[key] == fontWeight,
+            orElse: () => 'normal'),
         'font_size': fontSize,
         'font_color': colorToHexString(fontColor),
         'background_color': colorToHexString(backgroundColor),
-        'horizontal_alignment': editableHorizontalAlignment.keys.firstWhere((key) => editableHorizontalAlignment[key] == horizontalAlignment, orElse: () => 'top-left'),
-        'vertical_alignment': editableCellVerticalAlignment.keys.firstWhere((key) => editableCellVerticalAlignment[key] == verticalAlignment, orElse: () => 'start'),
-        'text_align': editableCellTextAlign.keys.firstWhere((element) => editableCellTextAlign[element] == textAlign, orElse: () => 'left'),
+        'horizontal_alignment': editableHorizontalAlignment.keys.firstWhere(
+            (key) => editableHorizontalAlignment[key] == horizontalAlignment,
+            orElse: () => 'top-left'),
+        'vertical_alignment': editableCellVerticalAlignment.keys.firstWhere(
+            (key) => editableCellVerticalAlignment[key] == verticalAlignment,
+            orElse: () => 'start'),
+        'text_align': editableCellTextAlign.keys.firstWhere(
+            (element) => editableCellTextAlign[element] == textAlign,
+            orElse: () => 'left'),
       };
 
   StyleEntity copy() {

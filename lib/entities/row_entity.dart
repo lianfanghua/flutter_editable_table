@@ -13,14 +13,19 @@ class RowEntity {
     if (cells != null) {
       this.cells = cells;
     } else {
-      this.cells = columns.map((e) => CellEntity(value: null, columnInfo: e)).toList(growable: false);
+      this.cells = columns
+          .map((e) => CellEntity(value: null, columnInfo: e))
+          .toList(growable: false);
     }
     this._columns = columns;
   }
 
-  factory RowEntity.fromJson(Map<String, dynamic> jsonRes, List<ColumnEntity> columns) {
+  factory RowEntity.fromJson(
+      Map<String, dynamic> jsonRes, List<ColumnEntity> columns) {
     return RowEntity(
-      cells: columns.map((e) => CellEntity(value: jsonRes[e.name], columnInfo: e)).toList(growable: false),
+      cells: columns
+          .map((e) => CellEntity(value: jsonRes[e.name], columnInfo: e))
+          .toList(growable: false),
       columns: columns,
       isDeleted: asT<bool?>(jsonRes['is_deleted']) ?? true,
     );

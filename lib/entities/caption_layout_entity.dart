@@ -10,10 +10,17 @@ class CaptionLayoutEntity {
     this.subCaption,
   });
 
-  factory CaptionLayoutEntity.fromJson(Map<String, dynamic> jsonRes) => CaptionLayoutEntity(
+  factory CaptionLayoutEntity.fromJson(Map<String, dynamic> jsonRes) =>
+      CaptionLayoutEntity(
         layoutDirection: asT<String?>(jsonRes['layout_direction']) ?? 'row',
-        mainCaption: jsonRes['main_caption'] == null ? null : CaptionEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['main_caption'])!),
-        subCaption: jsonRes['sub_caption'] == null ? null : CaptionEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['sub_caption'])!),
+        mainCaption: jsonRes['main_caption'] == null
+            ? null
+            : CaptionEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['main_caption'])!),
+        subCaption: jsonRes['sub_caption'] == null
+            ? null
+            : CaptionEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['sub_caption'])!),
       );
 
   final String layoutDirection;

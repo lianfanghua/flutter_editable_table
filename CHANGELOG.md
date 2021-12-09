@@ -1,3 +1,4 @@
-## 1.0.0
+## 1.0.1
 
-* Initial Release of the Package with basic functionality
+* Add [TableEntity] as data source
+* Add [readOnly] mode

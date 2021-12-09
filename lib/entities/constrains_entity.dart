@@ -9,7 +9,8 @@ class ConstrainsEntity {
     this.pattern,
   });
 
-  factory ConstrainsEntity.fromJson(Map<String, dynamic> jsonRes) => ConstrainsEntity(
+  factory ConstrainsEntity.fromJson(Map<String, dynamic> jsonRes) =>
+      ConstrainsEntity(
         minimum: asT<int?>(jsonRes['minimum']),
         maximum: asT<int?>(jsonRes['maximum']),
         pattern: asT<String?>(jsonRes['pattern']),

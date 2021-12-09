@@ -23,18 +23,22 @@ class EditableTableHeader extends StatefulWidget {
 }
 
 class _EditableTableHeaderState extends State<EditableTableHeader> {
-  late final double _actualWidth;
   late final List<ColumnEntity> _displayColumns;
 
   @override
   void initState() {
-    _displayColumns = widget.columnsEntity.where((column) => column.display).toList(growable: false);
-    _actualWidth = widget.headerWidth / _displayColumns.map((column) => column.widthFactor).reduce((value, element) => value + element);
+    _displayColumns = widget.columnsEntity
+        .where((column) => column.display)
+        .toList(growable: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final actualWidth = widget.headerWidth /
+        _displayColumns
+            .map((column) => column.widthFactor)
+            .reduce((value, element) => value + element);
     return Container(
       width: widget.headerWidth,
       child: IntrinsicHeight(
@@ -53,9 +57,10 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
                                   fontSize: e.value.style?.fontSize,
                                   fontWeight: e.value.style?.fontWeight,
                                 ),
-                        child: _buildColumn(context, e.value, e.key),
+                        child:
+                            _buildColumn(context, e.value, actualWidth, e.key),
                       )
-                    : _buildColumn(context, e.value, e.key),
+                    : _buildColumn(context, e.value, actualWidth, e.key),
               )
               .toList(growable: false),
         ),
@@ -63,10 +68,11 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
     );
   }
 
-  Widget _buildColumn(BuildContext context, ColumnEntity column, int index) {
+  Widget _buildColumn(BuildContext context, ColumnEntity column,
+      double headerWidth, int index) {
     return Container(
-      width: column.widthFactor * _actualWidth,
-      padding: widget.headerContentPadding ?? EdgeInsets.symmetric(vertical: 4.0),
+      width: column.widthFactor * headerWidth,
+      padding: widget.headerContentPadding ?? EdgeInsets.all(4.0),
       alignment: column.style?.horizontalAlignment,
       decoration: BoxDecoration(
         border: index == 0

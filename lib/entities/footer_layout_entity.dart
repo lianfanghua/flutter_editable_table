@@ -10,12 +10,14 @@ class FooterLayoutEntity {
   });
 
   factory FooterLayoutEntity.fromJson(Map<String, dynamic> jsonRes) {
-    final List<FooterEntity>? footerContent = jsonRes['content'] is List ? <FooterEntity>[] : null;
+    final List<FooterEntity>? footerContent =
+        jsonRes['content'] is List ? <FooterEntity>[] : null;
     if (footerContent != null) {
       for (final dynamic item in jsonRes['content']!) {
         if (item != null) {
           tryCatch(() {
-            footerContent.add(FooterEntity.fromJson(asT<Map<String, dynamic>>(item)!));
+            footerContent
+                .add(FooterEntity.fromJson(asT<Map<String, dynamic>>(item)!));
           });
         }
       }

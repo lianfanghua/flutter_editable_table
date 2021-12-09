@@ -33,9 +33,18 @@ class ColumnEntity {
         display: asT<bool?>(jsonRes['display']) ?? true,
         editable: asT<bool?>(jsonRes['editable']) ?? true,
         widthFactor: asT<double?>(jsonRes['width_factor']) ?? 0.2,
-        inputDecoration: jsonRes['input_decoration'] == null ? null : InputDecorationEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['input_decoration'])!),
-        constrains: jsonRes['constrains'] == null ? null : ConstrainsEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['constrains'])!),
-        style: jsonRes['style'] == null ? null : StyleEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['style'])!),
+        inputDecoration: jsonRes['input_decoration'] == null
+            ? null
+            : InputDecorationEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['input_decoration'])!),
+        constrains: jsonRes['constrains'] == null
+            ? null
+            : ConstrainsEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['constrains'])!),
+        style: jsonRes['style'] == null
+            ? null
+            : StyleEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['style'])!),
       );
 
   final bool primaryKey;

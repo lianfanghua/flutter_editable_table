@@ -22,6 +22,7 @@ class EditableTableRow extends StatefulWidget {
     this.removeRowIconAlignment,
     this.removeRowIconContainerBackgroundColor,
     this.onRowRemoved,
+    this.readOnly = false,
   }) : super(key: key);
 
   final RowEntity rowEntity;
@@ -41,44 +42,50 @@ class EditableTableRow extends StatefulWidget {
 
   final ValueChanged<RowEntity>? onRowRemoved;
 
+  final bool readOnly;
+
   @override
   _EditableTableRowState createState() => _EditableTableRowState();
 }
 
 class _EditableTableRowState extends State<EditableTableRow> {
-  late final double _actualWidth;
-
-  @override
-  void initState() {
-    _actualWidth = (widget.rowWidth - (widget.removable ? 32.0 : 0.0) - (widget.rowBorder != null ? widget.rowBorder!.left.width + widget.rowBorder!.right.width : 0.0)) / widget.rowEntity.cells!.where((cell) => cell.columnInfo.display).map((cell) => cell.columnInfo.widthFactor).reduce((value, element) => value + element);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final actualWidth = (widget.rowWidth -
+            (widget.removable ? 32.0 : 0.0) -
+            (widget.rowBorder != null
+                ? widget.rowBorder!.left.width + widget.rowBorder!.right.width
+                : 0.0)) /
+        widget.rowEntity.cells!
+            .where((cell) => cell.columnInfo.display)
+            .map((cell) => cell.columnInfo.widthFactor)
+            .reduce((value, element) => value + element);
     return widget.removable
         ? Container(
             width: widget.rowWidth,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildRow(),
-                EditableTableOperationCell(
-                  removeRowIcon: widget.removeRowIcon,
-                  removeRowIconPadding: widget.removeRowIconPadding,
-                  removeRowIconAlignment: widget.removeRowIconAlignment,
-                  removeRowIconContainerBackgroundColor: widget.removeRowIconContainerBackgroundColor,
-                  onRowRemoved: () {
-                    if (widget.onRowRemoved != null) widget.onRowRemoved!(widget.rowEntity);
-                  },
-                ),
+                _buildRow(actualWidth),
+                if (!widget.readOnly)
+                  EditableTableOperationCell(
+                    removeRowIcon: widget.removeRowIcon,
+                    removeRowIconPadding: widget.removeRowIconPadding,
+                    removeRowIconAlignment: widget.removeRowIconAlignment,
+                    removeRowIconContainerBackgroundColor:
+                        widget.removeRowIconContainerBackgroundColor,
+                    onRowRemoved: () {
+                      if (widget.onRowRemoved != null)
+                        widget.onRowRemoved!(widget.rowEntity);
+                    },
+                  ),
               ],
             ),
           )
-        : _buildRow();
+        : _buildRow(actualWidth);
   }
 
-  Widget _buildRow() {
+  Widget _buildRow(double rowWidth) {
     return Container(
       width: widget.rowWidth - (widget.removable ? 32.0 : 0.0),
       decoration: BoxDecoration(
@@ -97,7 +104,8 @@ class _EditableTableRowState extends State<EditableTableRow> {
             .map(
               (cell) => EditableTableDataCell(
                 cellEntity: cell,
-                cellWidth: cell.columnInfo.widthFactor * _actualWidth,
+                cellWidth: cell.columnInfo.widthFactor * rowWidth,
+                readOnly: widget.readOnly,
               ),
             )
             .toList(),
