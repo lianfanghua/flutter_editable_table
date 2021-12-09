@@ -206,7 +206,33 @@ class _MyHomePageState extends State<MyHomePage> {
       {"id": 7, "name": "Olivia", "age": 25, "desc": null, "salary": 2500.0, "married": true, "d_o_m": "2020-10-01", "l_s_t": "2021-01-08 20:20:00"},
       {"id": 8, "name": "Liam", "age": 23, "desc": null, "salary": 3000.0, "married": true, "d_o_m": "2018-08-01", "l_s_t": "2021-11-11 18:10:20"},
       {"id": 9, "name": "David", "age": 26, "desc": null, "salary": 2300.0, "married": true, "d_o_m": "2019-03-05", "l_s_t": "2021-12-08 21:30:50"},
-    ]
+    ],
+    "footer": {
+      "layout_direction": "column",
+      "content": [
+        {
+          "title": "Average Age: 22",
+          "display": true,
+          "editable": false,
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
+        },
+        {
+          "title": "Married: 3",
+          "display": true,
+          "editable": false,
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
+        },
+        {
+          "title": null,
+          "display": true,
+          "editable": true,
+          "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input identity", "fill_color": null},
+          "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
+        }
+      ]
+    }
   };
 
   @override
@@ -233,6 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           headerBorder: Border.all(color: Color(0xFF999999)),
           rowBorder: Border.all(color: Color(0xFF999999)),
+          footerBorder: Border.all(color: Color(0xFF999999)),
           onRowRemoved: (row) {
             print('row removed: ${row.toString()}');
           },

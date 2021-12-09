@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../constants.dart';
 import 'caption_layout_entity.dart';
 import 'column_entity.dart';
+import 'footer_layout_entity.dart';
 import 'row_entity.dart';
 import 'utils/utils.dart';
 
@@ -15,6 +16,7 @@ class TableEntity {
     this.captionLayout,
     required this.columns,
     required this.rows,
+    this.footerLayout,
   });
 
   factory TableEntity.fromJson(Map<String, dynamic> jsonRes) {
@@ -67,6 +69,7 @@ class TableEntity {
       captionLayout: jsonRes['caption'] == null ? null : CaptionLayoutEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['caption'])!),
       columns: columns,
       rows: rows,
+      footerLayout: jsonRes['footer'] == null ? null : FooterLayoutEntity.fromJson(asT<Map<String, dynamic>>(jsonRes['footer'])!),
     );
   }
 
@@ -77,6 +80,7 @@ class TableEntity {
   final CaptionLayoutEntity? captionLayout;
   final List<ColumnEntity> columns;
   final List<RowEntity> rows;
+  final FooterLayoutEntity? footerLayout;
 
   @override
   String toString() {
@@ -91,6 +95,7 @@ class TableEntity {
         'caption': captionLayout?.toJson(),
         'columns': columns.map((e) => e.toJson()).toList(),
         'rows': rows.map((e) => e.toJson()).toList(),
+        'footer': footerLayout?.toJson(),
       };
 
   TableEntity copy() {
@@ -102,6 +107,7 @@ class TableEntity {
       captionLayout: captionLayout?.copy(),
       columns: columns.map((e) => e.copy()).toList(),
       rows: rows.map((e) => e.copy()).toList(),
+      footerLayout: footerLayout?.copy(),
     );
   }
 

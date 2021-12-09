@@ -9,14 +9,14 @@ class EditableTableHeader extends StatefulWidget {
     required this.headerWidth,
     this.headerBorder,
     this.headerTextStyle,
-    this.headerTextPadding,
+    this.headerContentPadding,
   }) : super(key: key);
 
   final List<ColumnEntity> columnsEntity;
   final double headerWidth;
   final Border? headerBorder;
   final TextStyle? headerTextStyle;
-  final EdgeInsetsGeometry? headerTextPadding;
+  final EdgeInsetsGeometry? headerContentPadding;
 
   @override
   _EditableTableHeaderState createState() => _EditableTableHeaderState();
@@ -66,16 +66,16 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
   Widget _buildColumn(BuildContext context, ColumnEntity column, int index) {
     return Container(
       width: column.widthFactor * _actualWidth,
-      padding: widget.headerTextPadding ?? EdgeInsets.symmetric(vertical: 4.0),
+      padding: widget.headerContentPadding ?? EdgeInsets.symmetric(vertical: 4.0),
       alignment: column.style?.horizontalAlignment,
       decoration: BoxDecoration(
         border: index == 0
             ? widget.headerBorder
             : (widget.headerBorder != null
                 ? Border(
-                    top: widget.headerBorder!.left,
-                    bottom: widget.headerBorder!.bottom,
+                    top: widget.headerBorder!.top,
                     right: widget.headerBorder!.right,
+                    bottom: widget.headerBorder!.bottom,
                   )
                 : null),
         color: column.style?.backgroundColor,

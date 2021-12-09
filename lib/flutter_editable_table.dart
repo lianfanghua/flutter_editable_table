@@ -3,6 +3,7 @@ library flutter_editable_table;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_editable_table/widget/footer.dart';
 import 'package:flutter_editable_table/widget/operation_row.dart';
 
 import 'entities/row_entity.dart';
@@ -25,13 +26,21 @@ class EditableTable extends StatefulWidget {
     this.captionTextFieldFocusBorder,
     this.headerBorder,
     this.headerTextStyle,
+    this.headerContentPadding,
     this.rowBorder,
+    this.cellContentPadding,
     this.cellTextStyle,
-    this.cellTextPadding,
     this.cellHintTextStyle,
-    this.cellTextFieldContentPadding,
-    this.cellTextFieldBorder,
-    this.cellTextFieldFocusBorder,
+    this.cellInputDecorationContentPadding,
+    this.cellInputDecorationBorder,
+    this.cellInputDecorationFocusBorder,
+    this.footerBorder,
+    this.footerPadding,
+    this.footerTextStyle,
+    this.footerHintTextStyle,
+    this.footerInputDecorationContentPadding,
+    this.footerInputDecorationBorder,
+    this.footerInputDecorationFocusBorder,
     this.onRowRemoved,
     this.onRowAdded,
   }) : super(key: key);
@@ -51,15 +60,25 @@ class EditableTable extends StatefulWidget {
   /// Header Config
   final Border? headerBorder;
   final TextStyle? headerTextStyle;
+  final EdgeInsetsGeometry? headerContentPadding;
 
   /// Body Config
   final Border? rowBorder;
+  final EdgeInsetsGeometry? cellContentPadding;
   final TextStyle? cellTextStyle;
-  final EdgeInsetsGeometry? cellTextPadding;
   final TextStyle? cellHintTextStyle;
-  final EdgeInsetsGeometry? cellTextFieldContentPadding;
-  final InputBorder? cellTextFieldBorder;
-  final InputBorder? cellTextFieldFocusBorder;
+  final EdgeInsetsGeometry? cellInputDecorationContentPadding;
+  final InputBorder? cellInputDecorationBorder;
+  final InputBorder? cellInputDecorationFocusBorder;
+
+  /// Footer Config
+  final Border? footerBorder;
+  final TextStyle? footerTextStyle;
+  final EdgeInsetsGeometry? footerPadding;
+  final TextStyle? footerHintTextStyle;
+  final EdgeInsetsGeometry? footerInputDecorationContentPadding;
+  final InputBorder? footerInputDecorationBorder;
+  final InputBorder? footerInputDecorationFocusBorder;
 
   /// Method
   final ValueChanged<RowEntity>? onRowRemoved;
@@ -115,6 +134,7 @@ class EditableTableState extends State<EditableTable> {
                 headerWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 headerBorder: widget.headerBorder,
                 headerTextStyle: widget.headerTextStyle,
+                headerContentPadding: widget.headerContentPadding,
               ),
             if (_tableEntity.rows.isNotEmpty)
               EditableTableBody(
@@ -123,11 +143,11 @@ class EditableTableState extends State<EditableTable> {
                 rowWidth: _tableWidth,
                 rowBorder: widget.rowBorder,
                 cellTextStyle: widget.cellTextStyle,
-                cellContentPadding: widget.cellTextPadding,
+                cellContentPadding: widget.cellContentPadding,
                 cellHintTextStyle: widget.cellHintTextStyle,
-                cellInputDecorationContentPadding: widget.cellTextFieldContentPadding,
-                cellInputDecorationBorder: widget.cellTextFieldBorder,
-                cellInputDecorationFocusBorder: widget.cellTextFieldFocusBorder,
+                cellInputDecorationContentPadding: widget.cellInputDecorationContentPadding,
+                cellInputDecorationBorder: widget.cellInputDecorationBorder,
+                cellInputDecorationFocusBorder: widget.cellInputDecorationFocusBorder,
                 onRowRemoved: (RowEntity row) {
                   setState(() {
                     _tableEntity.rows.remove(row);
@@ -141,16 +161,32 @@ class EditableTableState extends State<EditableTable> {
                 rowWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
                 rowBorder: widget.rowBorder,
                 onRowAdded: () {
-                  setState(() {
-                    _tableEntity.rows.add(RowEntity(columns: _tableEntity.columns));
-                    _tableEntity.updateAutoIncreaseColumn();
-                  });
-                  if (widget.onRowAdded != null) widget.onRowAdded!;
+                  addRow();
                 },
+              ),
+            if (_tableEntity.footerLayout != null && _tableEntity.footerLayout!.footerContent != null && _tableEntity.footerLayout!.footerContent!.isNotEmpty)
+              EditableTableFooter(
+                footerLayoutEntity: _tableEntity.footerLayout!,
+                footerWidth: _tableWidth - (_tableEntity.removable ? 32.0 : 0.0),
+                footerPadding: widget.footerPadding,
+                footerBorder: widget.footerBorder,
+                footerTextStyle: widget.footerTextStyle,
+                footerHintTextStyle: widget.footerHintTextStyle,
+                footerInputDecorationContentPadding: widget.footerInputDecorationContentPadding,
+                footerInputDecorationBorder: widget.footerInputDecorationBorder,
+                footerInputDecorationFocusBorder: widget.footerInputDecorationFocusBorder,
               ),
           ],
         ),
       ),
     );
+  }
+
+  void addRow() {
+    setState(() {
+      _tableEntity.rows.add(RowEntity(columns: _tableEntity.columns));
+      _tableEntity.updateAutoIncreaseColumn();
+    });
+    if (widget.onRowAdded != null) widget.onRowAdded!;
   }
 }

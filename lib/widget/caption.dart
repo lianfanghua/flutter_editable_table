@@ -37,9 +37,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
     return Container(
       width: widget.captionWidth,
       padding: widget.captionPadding ?? EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        border: widget.captionBorder,
-      ),
+      decoration: BoxDecoration(border: widget.captionBorder),
       child: widget.captionLayoutEntity.layoutDirection.toLowerCase() == 'row'
           ? Row(
               children: [
