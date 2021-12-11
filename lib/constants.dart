@@ -38,3 +38,11 @@ const defaultColumnPrefix = 'column_';
 const defaultFormatValueSlot = '__VALUE__';
 
 const operationColumnWidthFactor = 0.2;
+
+enum FillingArea {
+  caption,
+  body,
+  footer,
+}
+
+typedef TableFiledFilled<T> = void Function(FillingArea, T value);

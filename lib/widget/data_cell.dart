@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../constants.dart';
 import '../entities/cell_entity.dart';
 
 class EditableTableDataCell extends StatefulWidget {
@@ -15,7 +16,10 @@ class EditableTableDataCell extends StatefulWidget {
     this.cellInputDecorationBorder,
     this.cellInputDecorationFocusBorder,
     this.cellTextStyle,
+    this.formFieldAutoValidateMode,
     this.readOnly = false,
+    this.onFilling,
+    this.onSubmitted,
   }) : super(key: key);
 
   final CellEntity cellEntity;
@@ -26,8 +30,11 @@ class EditableTableDataCell extends StatefulWidget {
   final InputBorder? cellInputDecorationBorder;
   final InputBorder? cellInputDecorationFocusBorder;
   final TextStyle? cellTextStyle;
-
+  final AutovalidateMode? formFieldAutoValidateMode;
   final bool readOnly;
+
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 
   @override
   _EditableTableDataCellState createState() => _EditableTableDataCellState();
@@ -106,6 +113,8 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
         counterText: '',
+        errorMaxLines: 1,
+        errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
         border: widget.cellInputDecorationBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
@@ -131,6 +140,12 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
                 color: widget.cellEntity.columnInfo.style?.fontColor,
               ),
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
+      validator: (value) {
+        return widget.cellEntity.required
+            ? (value != null && value.isNotEmpty ? null : '')
+            : null;
+      },
+      autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
       onTap: () {
         DatePicker.showDatePicker(
@@ -140,6 +155,22 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             final dateString = DateFormat('yyyy-MM-dd').format(date);
             widget.cellEntity.value = dateString;
             _textEditingController.text = dateString;
+            if (widget.onFilling != null) {
+              widget.onFilling!(FillingArea.body, dateString);
+            }
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(FillingArea.body, dateString);
+            }
+          },
+          onCancel: () {
+            widget.cellEntity.value = null;
+            _textEditingController.clear();
+            if (widget.onFilling != null) {
+              widget.onFilling!(FillingArea.body, null);
+            }
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(FillingArea.body, null);
+            }
           },
           currentTime: widget.cellEntity.value != null
               ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
@@ -168,6 +199,8 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
         counterText: '',
+        errorMaxLines: 1,
+        errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
         border: widget.cellInputDecorationBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
@@ -193,6 +226,12 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
                 color: widget.cellEntity.columnInfo.style?.fontColor,
               ),
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
+      validator: (value) {
+        return widget.cellEntity.required
+            ? (value != null && value.isNotEmpty ? null : '')
+            : null;
+      },
+      autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
       onTap: () {
         DatePicker.showDateTimePicker(
@@ -202,6 +241,22 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             final dateString = DateFormat('yyyy-MM-dd HH:mm').format(date);
             widget.cellEntity.value = dateString;
             _textEditingController.text = dateString;
+            if (widget.onFilling != null) {
+              widget.onFilling!(FillingArea.body, dateString);
+            }
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(FillingArea.body, dateString);
+            }
+          },
+          onCancel: () {
+            widget.cellEntity.value = null;
+            _textEditingController.clear();
+            if (widget.onFilling != null) {
+              widget.onFilling!(FillingArea.body, null);
+            }
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(FillingArea.body, null);
+            }
           },
           currentTime: widget.cellEntity.value != null
               ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
@@ -227,6 +282,12 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               setState(() {
                 widget.cellEntity.value = value;
               });
+              if (widget.onFilling != null) {
+                widget.onFilling!(FillingArea.body, value);
+              }
+              if (widget.onSubmitted != null) {
+                widget.onSubmitted!(FillingArea.body, value);
+              }
             },
     );
   }
@@ -268,10 +329,12 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
         counterText: '',
+        errorMaxLines: 1,
+        errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
         border: widget.cellInputDecorationBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
-                color: Theme.of(context).dividerColor,
+                color: Theme.of(context).disabledColor,
                 width: 1.0,
               ),
               borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -294,7 +357,16 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               ),
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
       keyboardType: textInputType,
+      validator: (value) {
+        return widget.cellEntity.required
+            ? (value != null && value.isNotEmpty ? null : '')
+            : null;
+      },
+      autovalidateMode: widget.formFieldAutoValidateMode,
       onChanged: (String value) {
+        if (widget.onFilling != null) {
+          widget.onFilling!(FillingArea.body, value);
+        }
         if (value.isEmpty) return;
         if (['integer', 'int']
             .contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
@@ -332,6 +404,11 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
           }
         } else {
           widget.cellEntity.value = value;
+        }
+      },
+      onFieldSubmitted: (value) {
+        if (widget.onSubmitted != null) {
+          widget.onSubmitted!(FillingArea.body, value);
         }
       },
     );

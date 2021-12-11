@@ -3,14 +3,15 @@ library flutter_editable_table;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_editable_table/widget/footer.dart';
-import 'package:flutter_editable_table/widget/operation_row.dart';
+import 'package:flutter_editable_table/constants.dart';
 
 import 'entities/row_entity.dart';
 import 'entities/table_entity.dart';
 import 'widget/body.dart';
 import 'widget/caption.dart';
+import 'widget/footer.dart';
 import 'widget/header.dart';
+import 'widget/operation_row.dart';
 
 class EditableTable extends StatefulWidget {
   const EditableTable({
@@ -51,9 +52,12 @@ class EditableTable extends StatefulWidget {
     this.footerInputDecorationContentPadding,
     this.footerInputDecorationBorder,
     this.footerInputDecorationFocusBorder,
+    this.formFieldAutoValidateMode,
+    this.readOnly = false,
     this.onRowRemoved,
     this.onRowAdded,
-    this.readOnly = false,
+    this.onFilling,
+    this.onSubmitted,
   })  : assert(data != null || entity != null,
             'data and entity cannot both be null'),
         super(key: key);
@@ -111,9 +115,12 @@ class EditableTable extends StatefulWidget {
   /// Callback
   final ValueChanged<RowEntity>? onRowRemoved;
   final VoidCallback? onRowAdded;
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 
   /// Main Control
   final bool readOnly;
+  final AutovalidateMode? formFieldAutoValidateMode;
 
   @override
   EditableTableState createState() => EditableTableState();
@@ -130,6 +137,8 @@ class EditableTableState extends State<EditableTable> {
       _readOnly = value;
     });
   }
+
+  bool get isFilled => _tableEntity.isFilled;
 
   double get _tablePadding =>
       widget.tablePadding != null && widget.tablePadding is EdgeInsets
@@ -176,7 +185,10 @@ class EditableTableState extends State<EditableTable> {
                 captionInputDecorationBorder: widget.captionTextFieldBorder,
                 captionInputDecorationFocusBorder:
                     widget.captionTextFieldFocusBorder,
+                formFieldAutoValidateMode: widget.formFieldAutoValidateMode,
                 readOnly: _readOnly,
+                onFilling: widget.onFilling,
+                onSubmitted: widget.onSubmitted,
               ),
             if (_tableEntity.columns.isNotEmpty)
               EditableTableHeader(
@@ -206,6 +218,8 @@ class EditableTableState extends State<EditableTable> {
                 removeRowIconAlignment: widget.removeRowIconAlignment,
                 removeRowIconContainerBackgroundColor:
                     widget.removeRowIconContainerBackgroundColor,
+                formFieldAutoValidateMode: widget.formFieldAutoValidateMode,
+                readOnly: _readOnly,
                 onRowRemoved: (RowEntity row) {
                   setState(() {
                     _tableEntity.rows.remove(row);
@@ -213,7 +227,8 @@ class EditableTableState extends State<EditableTable> {
                   });
                   if (widget.onRowRemoved != null) widget.onRowRemoved!(row);
                 },
-                readOnly: _readOnly,
+                onFilling: widget.onFilling,
+                onSubmitted: widget.onSubmitted,
               ),
             if (!_readOnly && _tableEntity.addable && widget.showAddRow)
               EditableTableOperationRow(
@@ -245,7 +260,10 @@ class EditableTableState extends State<EditableTable> {
                 footerInputDecorationBorder: widget.footerInputDecorationBorder,
                 footerInputDecorationFocusBorder:
                     widget.footerInputDecorationFocusBorder,
+                formFieldAutoValidateMode: widget.formFieldAutoValidateMode,
                 readOnly: _readOnly,
+                onFilling: widget.onFilling,
+                onSubmitted: widget.onSubmitted,
               ),
           ],
         ),

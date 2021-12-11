@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../entities/caption_entity.dart';
 import '../entities/caption_layout_entity.dart';
 
@@ -15,7 +16,10 @@ class EditableTableCaption extends StatefulWidget {
     this.captionInputDecorationContentPadding,
     this.captionInputDecorationBorder,
     this.captionInputDecorationFocusBorder,
+    this.formFieldAutoValidateMode,
     this.readOnly = false,
+    this.onFilling,
+    this.onSubmitted,
   }) : super(key: key);
 
   final CaptionLayoutEntity captionLayoutEntity;
@@ -27,7 +31,11 @@ class EditableTableCaption extends StatefulWidget {
   final EdgeInsetsGeometry? captionInputDecorationContentPadding;
   final InputBorder? captionInputDecorationBorder;
   final InputBorder? captionInputDecorationFocusBorder;
+  final AutovalidateMode? formFieldAutoValidateMode;
   final bool readOnly;
+
+  final TableFiledFilled<String>? onFilling;
+  final TableFiledFilled<String>? onSubmitted;
 
   @override
   _EditableTableCaptionState createState() => _EditableTableCaptionState();
@@ -85,10 +93,12 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                       hintStyle: widget.captionHintTextStyle,
                       hintMaxLines: captionEntity.inputDecoration?.maxLines,
                       counterText: '',
+                      errorMaxLines: 1,
+                      errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
                       border: widget.captionInputDecorationBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).dividerColor,
+                              color: Theme.of(context).disabledColor,
                               width: 1.0,
                             ),
                             borderRadius:
@@ -114,8 +124,22 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                             ),
                     keyboardAppearance:
                         MediaQuery.of(context).platformBrightness,
+                    validator: (value) {
+                      return captionEntity.required
+                          ? (value != null && value.isNotEmpty ? null : '')
+                          : null;
+                    },
+                    autovalidateMode: widget.formFieldAutoValidateMode,
                     onChanged: (value) {
                       captionEntity.title = value;
+                      if (widget.onFilling != null) {
+                        widget.onFilling!(FillingArea.caption, value);
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (widget.onSubmitted != null) {
+                        widget.onSubmitted!(FillingArea.caption, value);
+                      }
                     },
                   ),
                 ),

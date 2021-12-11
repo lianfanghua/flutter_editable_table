@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../entities/row_entity.dart';
 import 'data_cell.dart';
 import 'operation_cell.dart';
@@ -21,8 +22,11 @@ class EditableTableRow extends StatefulWidget {
     this.removeRowIconPadding,
     this.removeRowIconAlignment,
     this.removeRowIconContainerBackgroundColor,
-    this.onRowRemoved,
+    this.formFieldAutoValidateMode,
     this.readOnly = false,
+    this.onRowRemoved,
+    this.onFilling,
+    this.onSubmitted,
   }) : super(key: key);
 
   final RowEntity rowEntity;
@@ -39,10 +43,12 @@ class EditableTableRow extends StatefulWidget {
   final EdgeInsetsGeometry? removeRowIconPadding;
   final Alignment? removeRowIconAlignment;
   final Color? removeRowIconContainerBackgroundColor;
+  final AutovalidateMode? formFieldAutoValidateMode;
+  final bool readOnly;
 
   final ValueChanged<RowEntity>? onRowRemoved;
-
-  final bool readOnly;
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 
   @override
   _EditableTableRowState createState() => _EditableTableRowState();
@@ -105,7 +111,18 @@ class _EditableTableRowState extends State<EditableTableRow> {
               (cell) => EditableTableDataCell(
                 cellEntity: cell,
                 cellWidth: cell.columnInfo.widthFactor * rowWidth,
+                cellContentPadding: widget.cellContentPadding,
+                cellInputDecorationContentPadding:
+                    widget.cellInputDecorationContentPadding,
+                cellHintTextStyle: widget.cellHintTextStyle,
+                cellInputDecorationBorder: widget.cellInputDecorationBorder,
+                cellInputDecorationFocusBorder:
+                    widget.cellInputDecorationFocusBorder,
+                cellTextStyle: widget.cellTextStyle,
+                formFieldAutoValidateMode: widget.formFieldAutoValidateMode,
                 readOnly: widget.readOnly,
+                onFilling: widget.onFilling,
+                onSubmitted: widget.onSubmitted,
               ),
             )
             .toList(),

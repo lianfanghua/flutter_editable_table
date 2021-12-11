@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_editable_table/entities/footer_entity.dart';
 
+import '../constants.dart';
+import '../entities/footer_entity.dart';
 import '../entities/footer_layout_entity.dart';
 
 class EditableTableFooter extends StatefulWidget {
@@ -15,7 +16,10 @@ class EditableTableFooter extends StatefulWidget {
     this.footerInputDecorationContentPadding,
     this.footerInputDecorationBorder,
     this.footerInputDecorationFocusBorder,
+    this.formFieldAutoValidateMode,
     this.readOnly = false,
+    this.onFilling,
+    this.onSubmitted,
   }) : super(key: key);
 
   final FooterLayoutEntity footerLayoutEntity;
@@ -27,8 +31,11 @@ class EditableTableFooter extends StatefulWidget {
   final EdgeInsetsGeometry? footerInputDecorationContentPadding;
   final InputBorder? footerInputDecorationBorder;
   final InputBorder? footerInputDecorationFocusBorder;
-
+  final AutovalidateMode? formFieldAutoValidateMode;
   final bool readOnly;
+
+  final TableFiledFilled<String>? onFilling;
+  final TableFiledFilled<String>? onSubmitted;
 
   @override
   _EditableTableFooterState createState() => _EditableTableFooterState();
@@ -109,6 +116,8 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       hintStyle: widget.footerHintTextStyle,
                       hintMaxLines: footerEntity.inputDecoration?.maxLines,
                       counterText: '',
+                      errorMaxLines: 1,
+                      errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
                       border: widget.footerInputDecorationBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(
@@ -138,8 +147,22 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                             ),
                     keyboardAppearance:
                         MediaQuery.of(context).platformBrightness,
+                    validator: (value) {
+                      return footerEntity.required
+                          ? (value != null && value.isNotEmpty ? null : '')
+                          : null;
+                    },
+                    autovalidateMode: widget.formFieldAutoValidateMode,
                     onChanged: (value) {
                       footerEntity.title = value;
+                      if (widget.onFilling != null) {
+                        widget.onFilling!(FillingArea.footer, value);
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (widget.onSubmitted != null) {
+                        widget.onSubmitted!(FillingArea.footer, value);
+                      }
                     },
                   ),
                 ),
@@ -210,10 +233,12 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       hintStyle: widget.footerHintTextStyle,
                       hintMaxLines: footerEntity.inputDecoration?.maxLines,
                       counterText: '',
+                      errorMaxLines: 1,
+                      errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
                       border: widget.footerInputDecorationBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).dividerColor,
+                              color: Theme.of(context).disabledColor,
                               width: 1.0,
                             ),
                             borderRadius:
@@ -232,15 +257,29 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       fillColor: footerEntity.inputDecoration?.fillColor,
                     ),
                     style: widget.footerTextStyle ??
-                        Theme.of(context).textTheme.headline6?.copyWith(
+                        Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontSize: footerEntity.style?.fontSize,
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
                             ),
                     keyboardAppearance:
                         MediaQuery.of(context).platformBrightness,
+                    validator: (value) {
+                      return footerEntity.required
+                          ? (value != null && value.isNotEmpty ? null : '')
+                          : null;
+                    },
+                    autovalidateMode: widget.formFieldAutoValidateMode,
                     onChanged: (value) {
                       footerEntity.title = value;
+                      if (widget.onFilling != null) {
+                        widget.onFilling!(FillingArea.footer, value);
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (widget.onSubmitted != null) {
+                        widget.onSubmitted!(FillingArea.footer, value);
+                      }
                     },
                   ),
                 ),

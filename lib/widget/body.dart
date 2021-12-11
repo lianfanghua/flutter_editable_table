@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../entities/row_entity.dart';
 import 'data_row.dart';
 
@@ -20,8 +21,11 @@ class EditableTableBody extends StatefulWidget {
     this.removeRowIconPadding,
     this.removeRowIconAlignment,
     this.removeRowIconContainerBackgroundColor,
-    this.onRowRemoved,
+    this.formFieldAutoValidateMode,
     this.readOnly = false,
+    this.onRowRemoved,
+    this.onFilling,
+    this.onSubmitted,
   }) : super(key: key);
 
   final List<RowEntity> bodyEntity;
@@ -38,10 +42,12 @@ class EditableTableBody extends StatefulWidget {
   final EdgeInsetsGeometry? removeRowIconPadding;
   final Alignment? removeRowIconAlignment;
   final Color? removeRowIconContainerBackgroundColor;
+  final AutovalidateMode? formFieldAutoValidateMode;
+  final bool readOnly;
 
   final ValueChanged<RowEntity>? onRowRemoved;
-
-  final bool readOnly;
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 
   @override
   _EditableTableBodyState createState() => _EditableTableBodyState();
@@ -72,8 +78,11 @@ class _EditableTableBodyState extends State<EditableTableBody> {
               removeRowIconAlignment: widget.removeRowIconAlignment,
               removeRowIconContainerBackgroundColor:
                   widget.removeRowIconContainerBackgroundColor,
-              onRowRemoved: widget.onRowRemoved,
+              formFieldAutoValidateMode: widget.formFieldAutoValidateMode,
               readOnly: widget.readOnly,
+              onRowRemoved: widget.onRowRemoved,
+              onFilling: widget.onFilling,
+              onSubmitted: widget.onSubmitted,
             ),
           )
           .toList(),

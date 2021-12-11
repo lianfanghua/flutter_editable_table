@@ -22,4 +22,13 @@ class CellEntity {
       columnInfo: columnInfo,
     );
   }
+
+  bool get required =>
+      columnInfo.constrains != null && columnInfo.constrains!.required == true;
+
+  bool get isFilled =>
+      !columnInfo.editable ||
+      columnInfo.type == 'bool' ||
+      !required ||
+      (value != null && value.toString().isNotEmpty);
 }
