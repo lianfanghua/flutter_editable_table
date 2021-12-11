@@ -1,6 +1,8 @@
 # flutter_editable_table
 
-文档语言: [English](README.md) | [简体中文](README-ZH.md)
+[![pub package](https://img.shields.io/pub/v/flutter_editable_table.svg)](https://pub.dartlang.org/packages/flutter_editable_table)
+
+文档语言： [English](README.md) | [简体中文](README-ZH.md)
 
 根据json数据，构造可编辑、高自定义表格的组件
 
@@ -30,6 +32,7 @@ EditableTable(
   key: _editableTableKey,
   data: data,
   // entity: TableEntity.fromJson(data),
+  readOnly: false,
   tablePadding: EdgeInsets.all(8.0),
   captionBorder: Border(
     top: BorderSide(color: Color(0xFF999999)),
@@ -108,6 +111,7 @@ EditableTable(
       "display": true,
       "editable": true,
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+      "constrains": {"required": true},
       "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
     }
   },
@@ -124,6 +128,7 @@ EditableTable(
       "editable": false,
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
       "constrains": { // 输入内容约束，[editable]为[true]时有效
+        "required": true, // 是否必填，默认值为[false]，如果为[true]但没填写，获取填写`isFilled`状态将返回[false]
         "minimum": 0, // 输入最小值，输入小于该值会被替换为该值（同时影响键盘行为）
         "maximum": 99999999 // 输入最大值，输入大于该值会被替换为该值
       },
@@ -289,6 +294,7 @@ EditableTable(
 ### 自定义
 
 ```dart
+  /// Table Config
   final EdgeInsetsGeometry? tablePadding; 
 
   /// Caption Config
@@ -333,6 +339,9 @@ EditableTable(
   final EdgeInsetsGeometry? footerInputDecorationContentPadding;
   final InputBorder? footerInputDecorationBorder;
   final InputBorder? footerInputDecorationFocusBorder;
+
+  /// Validate Config
+  final AutovalidateMode? formFieldAutoValidateMode;
 ```
 
 ### 回调
@@ -341,6 +350,8 @@ EditableTable(
   /// Callback
   final ValueChanged<RowEntity>? onRowRemoved;
   final VoidCallback? onRowAdded;
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 ```
 
 ## 获取数据
@@ -379,6 +390,18 @@ final _editableTableKey = GlobalKey<EditableTableState>();
 EditableTable(key: _editableTableKey)
 ...
 _editableTableKey.currentState?.readOnly = true;
+```
+
+## Get Filling Status
+
+如果任何字段的`constants`中的`required`为[true]，并且`TextFormField`为空，则`isFilled`将返回 false。
+
+```dart
+final _editableTableKey = GlobalKey<EditableTableState>();
+...
+EditableTable(key: _editableTableKey)
+...
+print(_editableTableKey.currentState?.isFilled);
 ```
 
 ## 例子

@@ -1,5 +1,7 @@
 # flutter_editable_table
 
+[![pub package](https://img.shields.io/pub/v/flutter_editable_table.svg)](https://pub.dartlang.org/packages/flutter_editable_table)
+
 Language: [English](README.md) | [简体中文](README-ZH.md)
 
 A flutter package providing customizable and editable table from json.
@@ -30,6 +32,7 @@ EditableTable(
   key: _editableTableKey,
   data: data,
   // entity: TableEntity.fromJson(data),
+  readOnly: false,
   tablePadding: EdgeInsets.all(8.0),
   captionBorder: Border(
     top: BorderSide(color: Color(0xFF999999)),
@@ -108,6 +111,7 @@ EditableTable(
       "display": true,
       "editable": true,
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input the sub-caption", "fill_color": null},
+      "constrains": {"required": true},
       "style": {"font_weight": "normal", "font_size": 14.0, "font_color": "#333333", "background_color": null, "horizontal_alignment": "center", "vertical_alignment": "center", "text_align": "center"}
     }
   },
@@ -124,6 +128,7 @@ EditableTable(
       "editable": false,
       "input_decoration": {"min_lines": 1, "max_lines": 1, "max_length": 64, "hint_text": "Please input"},
       "constrains": { // [TextFormField] constrains, when [type] is int/float, and [editable] is [true], it will take effect
+        "required": true, // Required to fill, default value is [false], if [true] but this field not fill, it will return [false] when you get `isFilled`
         "minimum": 0, // The minimum value to input, when input less then this value will replaced with this value(it will affect the keyboard type)
         "maximum": 99999999 // The maximum value to input, when input grater then this value will replaced with this value
       },
@@ -289,7 +294,8 @@ EditableTable(
 ### Customization
 
 ```dart
-  final EdgeInsetsGeometry? tablePadding; 
+  /// Table Config
+  final EdgeInsetsGeometry? tablePadding;
 
   /// Caption Config
   final EdgeInsetsGeometry? captionPadding;
@@ -333,6 +339,9 @@ EditableTable(
   final EdgeInsetsGeometry? footerInputDecorationContentPadding;
   final InputBorder? footerInputDecorationBorder;
   final InputBorder? footerInputDecorationFocusBorder;
+  
+  /// Validate Config
+  final AutovalidateMode? formFieldAutoValidateMode;
 ```
 
 ### Callback
@@ -341,6 +350,8 @@ EditableTable(
   /// Callback
   final ValueChanged<RowEntity>? onRowRemoved;
   final VoidCallback? onRowAdded;
+  final TableFiledFilled<dynamic>? onFilling;
+  final TableFiledFilled<dynamic>? onSubmitted;
 ```
 
 ## Get Data
@@ -379,6 +390,18 @@ final _editableTableKey = GlobalKey<EditableTableState>();
 EditableTable(key: _editableTableKey)
 ...
 _editableTableKey.currentState?.readOnly = true;
+```
+
+## Get Filling Status
+
+If the `required` in the `constants` of any field is [true] and the `TextFormField` is empty, then `isFilled` will return false.
+
+```dart
+final _editableTableKey = GlobalKey<EditableTableState>();
+...
+EditableTable(key: _editableTableKey)
+...
+print(_editableTableKey.currentState?.isFilled);
 ```
 
 ## Example
