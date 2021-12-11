@@ -136,4 +136,12 @@ class TableEntity {
       }
     }
   }
+
+  bool get isFilled =>
+      (captionLayout == null || captionLayout!.isFilled) &&
+      (rows.isEmpty ||
+          rows
+              .map((e) => e.isFilled)
+              .reduce((value, element) => value && element)) &&
+      (footerLayout == null || footerLayout!.isFilled);
 }

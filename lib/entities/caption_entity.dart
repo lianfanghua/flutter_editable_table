@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'constrains_entity.dart';
 import 'input_decoration_entity.dart';
 import 'style_entity.dart';
 import 'utils/utils.dart';
@@ -10,6 +11,7 @@ class CaptionEntity {
     this.display = true,
     this.editable = true,
     this.inputDecoration,
+    this.constrains,
     this.style,
   });
 
@@ -21,6 +23,10 @@ class CaptionEntity {
             ? null
             : InputDecorationEntity.fromJson(
                 asT<Map<String, dynamic>>(jsonRes['input_decoration'])!),
+        constrains: jsonRes['constrains'] == null
+            ? null
+            : ConstrainsEntity.fromJson(
+                asT<Map<String, dynamic>>(jsonRes['constrains'])!),
         style: jsonRes['style'] == null
             ? null
             : StyleEntity.fromJson(
@@ -31,6 +37,7 @@ class CaptionEntity {
   final bool display;
   final bool editable;
   final InputDecorationEntity? inputDecoration;
+  final ConstrainsEntity? constrains;
   final StyleEntity? style;
 
   @override
@@ -43,6 +50,7 @@ class CaptionEntity {
         'display': display,
         'editable': editable,
         'input_decoration': inputDecoration?.toJson(),
+        'constrains': constrains?.toJson(),
         'style': style?.toJson(),
       };
 
@@ -52,7 +60,13 @@ class CaptionEntity {
       display: display,
       editable: editable,
       inputDecoration: inputDecoration?.copy(),
+      constrains: constrains?.copy(),
       style: style?.copy(),
     );
   }
+
+  bool get required => constrains != null && constrains!.required == true;
+
+  bool get isFilled =>
+      !editable || !required || (title != null && title!.isNotEmpty);
 }

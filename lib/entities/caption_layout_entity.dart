@@ -45,4 +45,10 @@ class CaptionLayoutEntity {
       subCaption: subCaption?.copy(),
     );
   }
+
+  bool get isFilled =>
+      mainCaption != null &&
+      mainCaption!.isFilled &&
+      subCaption != null &&
+      subCaption!.isFilled;
 }

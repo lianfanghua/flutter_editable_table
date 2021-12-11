@@ -47,4 +47,11 @@ class FooterLayoutEntity {
       footerContent: footerContent?.map((e) => e.copy()).toList(),
     );
   }
+
+  bool get isFilled =>
+      footerContent == null ||
+      footerContent!.isEmpty ||
+      footerContent!
+          .map((footer) => footer.isFilled)
+          .reduce((value, element) => value && element);
 }

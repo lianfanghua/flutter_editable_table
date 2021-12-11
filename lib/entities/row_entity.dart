@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'cell_entity.dart';
 import 'column_entity.dart';
-import 'utils/utils.dart';
 
 class RowEntity {
   RowEntity({
     required List<ColumnEntity> columns,
     List<CellEntity>? cells,
-    this.isDeleted = false,
   }) {
     if (cells != null) {
       this.cells = cells;
@@ -27,13 +25,11 @@ class RowEntity {
           .map((e) => CellEntity(value: jsonRes[e.name], columnInfo: e))
           .toList(growable: false),
       columns: columns,
-      isDeleted: asT<bool?>(jsonRes['is_deleted']) ?? true,
     );
   }
 
   late List<CellEntity>? cells;
   late List<ColumnEntity> _columns;
-  bool isDeleted;
 
   @override
   String toString() {
@@ -53,8 +49,14 @@ class RowEntity {
 
   RowEntity copy() {
     return RowEntity(
-      cells: cells?.map((e) => e.copy()).toList(),
-      columns: _columns.map((e) => e.copy()).toList(),
+      cells: cells?.map((e) => e.copy()).toList(growable: false),
+      columns: _columns.map((e) => e.copy()).toList(growable: false),
     );
   }
+
+  bool get isFilled =>
+      cells == null ||
+      cells!
+          .map((cell) => cell.isFilled)
+          .reduce((value, element) => value && element);
 }

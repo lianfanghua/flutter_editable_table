@@ -4,21 +4,21 @@ import 'utils/utils.dart';
 
 class ConstrainsEntity {
   const ConstrainsEntity({
+    this.required,
     this.minimum,
     this.maximum,
-    this.pattern,
   });
 
   factory ConstrainsEntity.fromJson(Map<String, dynamic> jsonRes) =>
       ConstrainsEntity(
+        required: asT<bool?>(jsonRes['required']),
         minimum: asT<int?>(jsonRes['minimum']),
         maximum: asT<int?>(jsonRes['maximum']),
-        pattern: asT<String?>(jsonRes['pattern']),
       );
 
+  final bool? required;
   final int? minimum;
   final int? maximum;
-  final String? pattern;
 
   @override
   String toString() {
@@ -26,16 +26,16 @@ class ConstrainsEntity {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'required': required,
         'minimum': minimum,
         'maximum': maximum,
-        'pattern': pattern,
       };
 
   ConstrainsEntity copy() {
     return ConstrainsEntity(
+      required: required,
       minimum: minimum,
       maximum: maximum,
-      pattern: pattern,
     );
   }
 }
