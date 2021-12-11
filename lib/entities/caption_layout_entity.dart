@@ -47,8 +47,6 @@ class CaptionLayoutEntity {
   }
 
   bool get isFilled =>
-      mainCaption != null &&
-      mainCaption!.isFilled &&
-      subCaption != null &&
-      subCaption!.isFilled;
+      (mainCaption == null || mainCaption!.isFilled) &&
+      (subCaption == null || subCaption!.isFilled);
 }
