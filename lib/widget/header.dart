@@ -10,6 +10,7 @@ class EditableTableHeader extends StatefulWidget {
     this.headerBorder,
     this.headerTextStyle,
     this.headerContentPadding,
+    this.headerBackgroundColor,
   }) : super(key: key);
 
   final List<ColumnEntity> columnsEntity;
@@ -17,6 +18,7 @@ class EditableTableHeader extends StatefulWidget {
   final Border? headerBorder;
   final TextStyle? headerTextStyle;
   final EdgeInsetsGeometry? headerContentPadding;
+  final Color? headerBackgroundColor;
 
   @override
   _EditableTableHeaderState createState() => _EditableTableHeaderState();
@@ -84,16 +86,16 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
                     bottom: widget.headerBorder!.bottom,
                   )
                 : null),
-        color: column.style?.backgroundColor,
+        color: column.style?.backgroundColor ?? widget.headerBackgroundColor,
       ),
       child: Text(
         column.title,
-        style: widget.headerTextStyle ??
-            Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: column.style?.fontSize,
-                  fontWeight: column.style?.fontWeight,
-                  color: column.style?.fontColor,
-                ),
+        style: (widget.headerTextStyle ?? Theme.of(context).textTheme.bodyText1)
+            ?.copyWith(
+          fontSize: column.style?.fontSize,
+          fontWeight: column.style?.fontWeight,
+          color: column.style?.fontColor,
+        ),
         textAlign: column.style?.textAlign,
       ),
     );

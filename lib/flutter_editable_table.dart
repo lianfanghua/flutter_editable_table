@@ -29,6 +29,7 @@ class EditableTable extends StatefulWidget {
     this.headerBorder,
     this.headerTextStyle,
     this.headerContentPadding,
+    this.headerBackgroundColor,
     this.rowBorder,
     this.cellContentPadding,
     this.cellTextStyle,
@@ -82,6 +83,7 @@ class EditableTable extends StatefulWidget {
   final Border? headerBorder;
   final TextStyle? headerTextStyle;
   final EdgeInsetsGeometry? headerContentPadding;
+  final Color? headerBackgroundColor;
 
   /// Body Config
   final Border? rowBorder;
@@ -198,6 +200,7 @@ class EditableTableState extends State<EditableTable> {
                 headerBorder: widget.headerBorder,
                 headerTextStyle: widget.headerTextStyle,
                 headerContentPadding: widget.headerContentPadding,
+                headerBackgroundColor: widget.headerBackgroundColor,
               ),
             if (_tableEntity.rows.isNotEmpty)
               EditableTableBody(
