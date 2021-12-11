@@ -51,29 +51,21 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
 
   @override
   Widget build(BuildContext context) {
-    _textEditingController.text = widget.cellEntity.value != null
-        ? widget.cellEntity.value.toString()
-        : '';
+    _textEditingController.text = widget.cellEntity.value != null ? widget.cellEntity.value.toString() : '';
     return Container(
       width: widget.cellWidth,
       padding: widget.cellContentPadding ?? EdgeInsets.all(4.0),
       alignment: widget.cellEntity.columnInfo.style?.horizontalAlignment,
-      child: !widget.readOnly &&
-              !widget.cellEntity.columnInfo.autoIncrease &&
-              widget.cellEntity.columnInfo.editable
+      child: !widget.readOnly && !widget.cellEntity.columnInfo.autoIncrease && widget.cellEntity.columnInfo.editable
           ? _buildWidget(context)
           : (widget.cellEntity.columnInfo.type.toLowerCase() == 'bool'
               ? _buildCheckBox(readOnly: true)
               : Text(
-                  widget.cellEntity.value != null
-                      ? widget.cellEntity.value.toString()
-                      : '',
+                  widget.cellEntity.value != null ? widget.cellEntity.value.toString() : '',
                   style: widget.cellTextStyle ??
                       Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize:
-                                widget.cellEntity.columnInfo.style?.fontSize,
-                            color:
-                                widget.cellEntity.columnInfo.style?.fontColor,
+                            fontSize: widget.cellEntity.columnInfo.style?.fontSize,
+                            color: widget.cellEntity.columnInfo.style?.fontColor,
                           ),
                   textAlign: widget.cellEntity.columnInfo.style?.textAlign,
                 )),
@@ -107,8 +99,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       maxLength: widget.cellEntity.columnInfo.inputDecoration?.maxLength,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding:
-            widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+        contentPadding: widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
         hintText: widget.cellEntity.columnInfo.inputDecoration?.hintText,
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
@@ -141,9 +132,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               ),
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
       validator: (value) {
-        return widget.cellEntity.required
-            ? (value != null && value.isNotEmpty ? null : '')
-            : null;
+        return widget.cellEntity.required ? (value != null && value.isNotEmpty ? null : '') : null;
       },
       autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
@@ -172,14 +161,8 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               widget.onSubmitted!(FillingArea.body, null);
             }
           },
-          currentTime: widget.cellEntity.value != null
-              ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
-                  DateTime.now())
-              : DateTime.now(),
-          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' &&
-                  WidgetsBinding.instance?.window.locale.languageCode == 'zh'
-              ? LocaleType.zh
-              : LocaleType.en,
+          currentTime: widget.cellEntity.value != null ? (DateTime.tryParse(widget.cellEntity.value.toString()) ?? DateTime.now()) : DateTime.now(),
+          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' && WidgetsBinding.instance?.window.locale.languageCode == 'zh' ? LocaleType.zh : LocaleType.en,
         );
       },
     );
@@ -193,8 +176,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       maxLength: widget.cellEntity.columnInfo.inputDecoration?.maxLength,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding:
-            widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+        contentPadding: widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
         hintText: widget.cellEntity.columnInfo.inputDecoration?.hintText,
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
@@ -227,9 +209,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               ),
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
       validator: (value) {
-        return widget.cellEntity.required
-            ? (value != null && value.isNotEmpty ? null : '')
-            : null;
+        return widget.cellEntity.required ? (value != null && value.isNotEmpty ? null : '') : null;
       },
       autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
@@ -258,14 +238,8 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               widget.onSubmitted!(FillingArea.body, null);
             }
           },
-          currentTime: widget.cellEntity.value != null
-              ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
-                  DateTime.now())
-              : DateTime.now(),
-          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' &&
-                  WidgetsBinding.instance?.window.locale.languageCode == 'zh'
-              ? LocaleType.zh
-              : LocaleType.en,
+          currentTime: widget.cellEntity.value != null ? (DateTime.tryParse(widget.cellEntity.value.toString()) ?? DateTime.now()) : DateTime.now(),
+          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' && WidgetsBinding.instance?.window.locale.languageCode == 'zh' ? LocaleType.zh : LocaleType.en,
         );
       },
     );
@@ -273,9 +247,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
 
   Widget _buildCheckBox({bool readOnly = false}) {
     return Checkbox(
-      value: widget.cellEntity.value != null && widget.cellEntity.value is bool
-          ? widget.cellEntity.value
-          : false,
+      value: widget.cellEntity.value != null && widget.cellEntity.value is bool ? widget.cellEntity.value : false,
       onChanged: readOnly
           ? null
           : (value) {
@@ -297,23 +269,12 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
     switch (widget.cellEntity.columnInfo.type.toLowerCase()) {
       case 'integer':
       case 'int':
-        textInputType = TextInputType.numberWithOptions(
-            signed: widget.cellEntity.columnInfo.constrains != null &&
-                    widget.cellEntity.columnInfo.constrains!.minimum != null &&
-                    widget.cellEntity.columnInfo.constrains!.minimum! >= 0
-                ? false
-                : true);
+        textInputType = TextInputType.numberWithOptions(signed: widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.minimum != null && widget.cellEntity.columnInfo.constrains!.minimum! >= 0 ? false : true);
         break;
       case 'float':
       case 'double':
       case 'decimal':
-        textInputType = TextInputType.numberWithOptions(
-            signed: widget.cellEntity.columnInfo.constrains != null &&
-                    widget.cellEntity.columnInfo.constrains!.minimum != null &&
-                    widget.cellEntity.columnInfo.constrains!.minimum! >= 0
-                ? false
-                : true,
-            decimal: true);
+        textInputType = TextInputType.numberWithOptions(signed: widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.minimum != null && widget.cellEntity.columnInfo.constrains!.minimum! >= 0 ? false : true, decimal: true);
         break;
     }
     return TextFormField(
@@ -323,8 +284,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       maxLength: widget.cellEntity.columnInfo.inputDecoration?.maxLength,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding:
-            widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
+        contentPadding: widget.cellInputDecorationContentPadding ?? EdgeInsets.all(8.0),
         hintText: widget.cellEntity.columnInfo.inputDecoration?.hintText,
         hintStyle: widget.cellHintTextStyle,
         hintMaxLines: widget.cellEntity.columnInfo.inputDecoration?.maxLines,
@@ -358,26 +318,22 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       keyboardAppearance: MediaQuery.of(context).platformBrightness,
       keyboardType: textInputType,
       validator: (value) {
-        return widget.cellEntity.required
-            ? (value != null && value.isNotEmpty ? null : '')
-            : null;
+        return widget.cellEntity.required ? (value != null && value.isNotEmpty ? null : '') : null;
       },
       autovalidateMode: widget.formFieldAutoValidateMode,
       onChanged: (String value) {
         if (widget.onFilling != null) {
           widget.onFilling!(FillingArea.body, value);
         }
-        if (value.isEmpty) return;
-        if (['integer', 'int']
-            .contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
+        if (value.isEmpty) {
+          widget.cellEntity.value = null;
+          return;
+        }
+        if (['integer', 'int'].contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
           final finalValue = int.tryParse(value);
           if (finalValue != null) {
-            if (widget.cellEntity.columnInfo.constrains != null &&
-                widget.cellEntity.columnInfo.constrains!.maximum != null &&
-                finalValue >
-                    widget.cellEntity.columnInfo.constrains!.maximum!) {
-              widget.cellEntity.value =
-                  widget.cellEntity.columnInfo.constrains!.maximum!;
+            if (widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.maximum != null && finalValue > widget.cellEntity.columnInfo.constrains!.maximum!) {
+              widget.cellEntity.value = widget.cellEntity.columnInfo.constrains!.maximum!;
             } else {
               widget.cellEntity.value = finalValue;
             }
@@ -385,16 +341,11 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
             widget.cellEntity.value = 0;
             _textEditingController.text = 0.toString();
           }
-        } else if (['float', 'double', 'decimal']
-            .contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
+        } else if (['float', 'double', 'decimal'].contains(widget.cellEntity.columnInfo.type.toLowerCase())) {
           final finalValue = double.tryParse(value);
           if (finalValue != null) {
-            if (widget.cellEntity.columnInfo.constrains != null &&
-                widget.cellEntity.columnInfo.constrains!.maximum != null &&
-                finalValue >
-                    widget.cellEntity.columnInfo.constrains!.maximum!) {
-              widget.cellEntity.value =
-                  widget.cellEntity.columnInfo.constrains!.maximum!;
+            if (widget.cellEntity.columnInfo.constrains != null && widget.cellEntity.columnInfo.constrains!.maximum != null && finalValue > widget.cellEntity.columnInfo.constrains!.maximum!) {
+              widget.cellEntity.value = widget.cellEntity.columnInfo.constrains!.maximum!;
             } else {
               widget.cellEntity.value = finalValue;
             }
