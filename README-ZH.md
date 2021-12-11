@@ -310,6 +310,7 @@ EditableTable(
   final Border? headerBorder;
   final TextStyle? headerTextStyle;
   final EdgeInsetsGeometry? headerContentPadding;
+  final Color? headerBackgroundColor;
 
   /// Body Config
   final bool showAddRow; // 是否显示增加操作行
