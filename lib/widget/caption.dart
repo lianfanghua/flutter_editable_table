@@ -104,6 +104,15 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(0.0)),
                           ),
+                      enabledBorder: widget.captionInputDecorationBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).disabledColor,
+                              width: 1.0,
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                          ),
                       focusedBorder: widget.captionInputDecorationFocusBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(

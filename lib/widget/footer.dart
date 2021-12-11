@@ -121,7 +121,16 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       border: widget.footerInputDecorationBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).dividerColor,
+                              color: Theme.of(context).disabledColor,
+                              width: 1.0,
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                          ),
+                      enabledBorder: widget.footerInputDecorationBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).disabledColor,
                               width: 1.0,
                             ),
                             borderRadius:
@@ -236,6 +245,15 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       errorMaxLines: 1,
                       errorStyle: TextStyle(fontSize: 0.0, height: 0.0),
                       border: widget.footerInputDecorationBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).disabledColor,
+                              width: 1.0,
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                          ),
+                      enabledBorder: widget.footerInputDecorationBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).disabledColor,
