@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Update flutter_datetime_picker
+
 ## 1.1.0
 
 * [IMPORTANT!!!] Fix cell value does not change when text field is clear
