@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart';
 import 'package:intl/intl.dart';
 
 import '../constants.dart';

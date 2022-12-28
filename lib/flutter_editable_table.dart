@@ -1,7 +1,5 @@
 library flutter_editable_table;
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_editable_table/constants.dart';
 
