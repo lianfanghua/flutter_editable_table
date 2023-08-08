@@ -149,7 +149,7 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       fillColor: footerEntity.inputDecoration?.fillColor,
                     ),
                     style: widget.footerTextStyle ??
-                        Theme.of(context).textTheme.headline6?.copyWith(
+                        Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontSize: footerEntity.style?.fontSize,
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
@@ -191,7 +191,7 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                   child: Text(
                     footerEntity.title ?? '',
                     style: widget.footerTextStyle ??
-                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                        Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontSize: footerEntity.style?.fontSize,
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
@@ -275,7 +275,7 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                       fillColor: footerEntity.inputDecoration?.fillColor,
                     ),
                     style: widget.footerTextStyle ??
-                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                        Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontSize: footerEntity.style?.fontSize,
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,
@@ -331,7 +331,7 @@ class _EditableTableFooterState extends State<EditableTableFooter> {
                   child: Text(
                     footerEntity.title ?? '',
                     style: widget.footerTextStyle ??
-                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                        Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontSize: footerEntity.style?.fontSize,
                               fontWeight: footerEntity.style?.fontWeight,
                               color: footerEntity.style?.fontColor,

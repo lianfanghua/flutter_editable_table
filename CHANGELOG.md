@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Update flutter_datetime_picker_bdaya to 3.0.2
+
 ## 1.1.1
 
 * Update flutter_datetime_picker

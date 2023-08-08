@@ -126,7 +126,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                       fillColor: captionEntity.inputDecoration?.fillColor,
                     ),
                     style: widget.captionTextStyle ??
-                        Theme.of(context).textTheme.headline6?.copyWith(
+                        Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontSize: captionEntity.style?.fontSize,
                               fontWeight: captionEntity.style?.fontWeight,
                               color: captionEntity.style?.fontColor,
@@ -164,7 +164,7 @@ class _EditableTableCaptionState extends State<EditableTableCaption> {
                 child: Text(
                   captionEntity.title ?? '',
                   style: widget.captionTextStyle ??
-                      Theme.of(context).textTheme.headline6?.copyWith(
+                      Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: captionEntity.style?.fontSize,
                             fontWeight: captionEntity.style?.fontWeight,
                             color: captionEntity.style?.fontColor,

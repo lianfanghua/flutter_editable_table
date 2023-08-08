@@ -22,7 +22,7 @@ class EditableTableOperationCell extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+        WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
         if (onRowRemoved != null) onRowRemoved!();
       },
       child: Container(
@@ -33,7 +33,7 @@ class EditableTableOperationCell extends StatelessWidget {
         child: removeRowIcon ??
             Icon(
               Icons.remove_circle,
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
               size: 24.0,
             ),
       ),

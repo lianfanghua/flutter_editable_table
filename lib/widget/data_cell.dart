@@ -75,7 +75,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
                       ? widget.cellEntity.value.toString()
                       : '',
                   style: widget.cellTextStyle ??
-                      Theme.of(context).textTheme.bodyText1?.copyWith(
+                      Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize:
                                 widget.cellEntity.columnInfo.style?.fontSize,
                             color:
@@ -149,7 +149,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         fillColor: widget.cellEntity.columnInfo.inputDecoration?.fillColor,
       ),
       style: widget.cellTextStyle ??
-          Theme.of(context).textTheme.bodyText1?.copyWith(
+          Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: widget.cellEntity.columnInfo.style?.fontSize,
                 color: widget.cellEntity.columnInfo.style?.fontColor,
               ),
@@ -162,7 +162,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
       onTap: () {
-        DatePicker.showDatePicker(
+        DatePickerBdaya.showDatePicker(
           context,
           showTitleActions: true,
           onConfirm: (date) {
@@ -190,10 +190,14 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
                   DateTime.now())
               : DateTime.now(),
-          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' &&
-                  WidgetsBinding.instance?.window.locale.languageCode == 'zh'
-              ? LocaleType.zh
-              : LocaleType.en,
+          locale:
+              WidgetsBinding.instance.platformDispatcher.locale.countryCode ==
+                          'CN' &&
+                      WidgetsBinding.instance.platformDispatcher.locale
+                              .languageCode ==
+                          'zh'
+                  ? LocaleType.zh
+                  : LocaleType.en,
         );
       },
     );
@@ -243,7 +247,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         fillColor: widget.cellEntity.columnInfo.inputDecoration?.fillColor,
       ),
       style: widget.cellTextStyle ??
-          Theme.of(context).textTheme.bodyText1?.copyWith(
+          Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: widget.cellEntity.columnInfo.style?.fontSize,
                 color: widget.cellEntity.columnInfo.style?.fontColor,
               ),
@@ -256,7 +260,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
       autovalidateMode: widget.formFieldAutoValidateMode,
       readOnly: true,
       onTap: () {
-        DatePicker.showDateTimePicker(
+        DatePickerBdaya.showDateTimePicker(
           context,
           showTitleActions: true,
           onConfirm: (date) {
@@ -284,10 +288,14 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
               ? (DateTime.tryParse(widget.cellEntity.value.toString()) ??
                   DateTime.now())
               : DateTime.now(),
-          locale: WidgetsBinding.instance?.window.locale.countryCode == 'CN' &&
-                  WidgetsBinding.instance?.window.locale.languageCode == 'zh'
-              ? LocaleType.zh
-              : LocaleType.en,
+          locale:
+              WidgetsBinding.instance.platformDispatcher.locale.countryCode ==
+                          'CN' &&
+                      WidgetsBinding.instance.platformDispatcher.locale
+                              .languageCode ==
+                          'zh'
+                  ? LocaleType.zh
+                  : LocaleType.en,
         );
       },
     );
@@ -381,7 +389,7 @@ class _EditableTableDataCellState extends State<EditableTableDataCell> {
         fillColor: widget.cellEntity.columnInfo.inputDecoration?.fillColor,
       ),
       style: widget.cellTextStyle ??
-          Theme.of(context).textTheme.bodyText1?.copyWith(
+          Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: widget.cellEntity.columnInfo.style?.fontSize,
                 color: widget.cellEntity.columnInfo.style?.fontColor,
               ),

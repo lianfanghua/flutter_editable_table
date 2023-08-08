@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
-            WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+            WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
           },
           child: child,
         );
@@ -415,7 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
               _editableTableKey.currentState?.addRow();
             },
             child: Icon(Icons.add),
@@ -424,7 +424,7 @@ class _MyHomePageState extends State<MyHomePage> {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
               _editableTableKey.currentState?.readOnly = editing;
               setState(() {
                 editing = !editing;

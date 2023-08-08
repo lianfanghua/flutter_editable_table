@@ -90,7 +90,7 @@ class _EditableTableHeaderState extends State<EditableTableHeader> {
       ),
       child: Text(
         column.title,
-        style: (widget.headerTextStyle ?? Theme.of(context).textTheme.bodyText1)
+        style: (widget.headerTextStyle ?? Theme.of(context).textTheme.bodyLarge)
             ?.copyWith(
           fontSize: column.style?.fontSize,
           fontWeight: column.style?.fontWeight,
